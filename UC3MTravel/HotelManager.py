@@ -1,12 +1,16 @@
 import json
 from .HotelManagementException import HotelManagementException
 from .HotelReservation import HotelReservation
-
+from luhn import verify
 class HotelManager:
     def __init__(self):
         pass
 
     def validatecreditcard( self, x ):
+        if verify(x):
+            return True
+        else:
+            return False
         # PLEASE INCLUDE HERE THE CODE FOR VALIDATING THE GUID
         # RETURN TRUE IF THE GUID IS RIGHT, OR FALSE IN OTHER CASE
         return True
