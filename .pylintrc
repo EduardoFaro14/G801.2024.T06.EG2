@@ -46,7 +46,8 @@ fail-under=10
 #from-stdin=
 
 # Files or directories to be skipped. They should be base names, not paths.
-ignore=CVS
+#ignore=CVS
+ignore=CVS,*.pdf
 
 # Add files or directories matching the regular expressions patterns to the
 # ignore-list. The regex matches against paths and can be in Posix or Windows
@@ -150,6 +151,7 @@ class-attribute-naming-style=any
 #class-attribute-rgx=
 
 # Naming style matching correct class constant names.
+#class-const-naming-style=UPPER_CASE
 class-const-naming-style=snake_case
 
 # Regular expression matching correct class constant names. Overrides class-
@@ -158,6 +160,7 @@ class-const-naming-style=snake_case
 #class-const-rgx=
 
 # Naming style matching correct class names.
+#class-naming-style=PascalCase
 class-naming-style=camelCase
 
 # Regular expression matching correct class names. Overrides class-naming-
@@ -177,6 +180,7 @@ const-naming-style=UPPER_CASE
 docstring-min-length=-1
 
 # Naming style matching correct function names.
+#function-naming-style=snake_case
 function-naming-style=PascalCase
 
 # Regular expression matching correct function names. Overrides function-
@@ -243,6 +247,7 @@ property-classes=abc.abstractproperty
 #typevar-rgx=
 
 # Naming style matching correct variable names.
+#variable-naming-style=snake_case
 variable-naming-style=camelCase
 
 # Regular expression matching correct variable names. Overrides variable-
@@ -285,6 +290,7 @@ exclude-too-few-public-methods=
 ignored-parents=
 
 # Maximum number of arguments for function / method.
+#max-args=5
 max-args=7
 
 # Maximum number of attributes for a class (see R0902).
@@ -300,6 +306,7 @@ max-branches=12
 max-locals=15
 
 # Maximum number of parents for a class (see R0901).
+#max-parents=7
 max-parents=9
 
 # Maximum number of public methods for a class (see R0904).
@@ -332,11 +339,12 @@ ignore-long-lines=^\s*(# )?<?https?://\S+>?$
 # Number of spaces of indent required inside a hanging or continued line.
 indent-after-paren=4
 
-# String used as indentation unit. This is usually "    " (4 spaces) or "\t" (1
-# tab).
-indent-string='    '
+#String used as indentation unit. This is usually "   " (3 spaces)
+#indent-string='    '
+indent-string='   '
 
 # Maximum number of characters on a single line.
+#max-line-length=100
 max-line-length=95
 
 # Maximum number of lines in a module.
@@ -510,6 +518,7 @@ ignore-imports=yes
 ignore-signatures=yes
 
 # Minimum lines number of a similarity.
+#min-similarity-lines=4
 min-similarity-lines=5
 
 
