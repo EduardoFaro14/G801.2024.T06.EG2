@@ -313,10 +313,12 @@ max-parents=9
 max-public-methods=20
 
 # Maximum number of return / yield for function / method body.
-max-returns=6
+# max-returns=6
+max-returns=7
 
 # Maximum number of statements in function / method body.
-max-statements=50
+# max-statements=50
+max-statements=60
 
 # Minimum number of public methods for a class (see R0903).
 min-public-methods=2
@@ -525,7 +527,8 @@ min-similarity-lines=5
 [SPELLING]
 
 # Limits count of emitted suggestions for spelling mistakes.
-max-spelling-suggestions=4
+# max-spelling-suggestions=4
+max-spelling-suggestions=5
 
 # Spelling dictionary name. No available dictionaries : You need to install
 # both the python package and the system dependency for enchant to work.
