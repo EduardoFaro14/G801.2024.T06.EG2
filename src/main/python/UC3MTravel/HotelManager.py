@@ -7,19 +7,15 @@ class HotelManager:
         pass
 
     def validatecreditcard( self, x ):
-        if verify(x):
-            return True
-        else:
-            return False
+        """valida la tarjeta"""
+        return verify(x)
         # PLEASE INCLUDE HERE THE CODE FOR VALIDATING THE GUID
         # RETURN TRUE IF THE GUID IS RIGHT, OR FALSE IN OTHER CASE
-        return True
-
     def ReaddatafromJSOn( self, fi):
-
+        """leer de JSON"""
         try:
-            with open(fi) as f:
-                DATA = json.load(f)
+            with open(fi, encoding='utf-8') as f:
+                data = json.load(f)
         except FileNotFoundError as e:
             raise HotelManagementException("Wrong file or file path") from e
         except json.JSONDecodeError as e:
@@ -27,9 +23,11 @@ class HotelManager:
 
 
         try:
-            c = DATA["CreditCard"]
-            p = DATA["phoneNumber"]
-            req = HotelReservation(IDCARD="12345678Z",creditcardNumb=c,nAMeAndSURNAME="John Doe",phonenumber=p,room_type="single",numdays=3)
+            c = data["CreditCard"]
+            p = data["phoneNumber"]
+            req = HotelReservation(id_card="12345678Z", creditcard_numb=c,
+                                   name_and_surname="John Doe",
+                                   phone_number=p, room_type="single", num_days=3)
         except KeyError as e:
             raise HotelManagementException("JSON Decode Error - Invalid JSON Key") from e
         if not self.validatecreditcard(c):

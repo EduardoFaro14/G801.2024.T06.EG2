@@ -3,9 +3,10 @@ from datetime import datetime
 import hashlib
 
 class HotelStay():
-    def __init__(self, idcard, localizer, numdays, roomtype  ):
+    """Gestión de estancia"""
+    def __init__(self, idcard, localizer, numdays, room_type):
         self.__alg = "SHA-256"
-        self.__type = roomtype
+        self.__type = room_type
         self.__idcard = idcard
         self.__localizer = localizer
         justnow = datetime.utcnow()
@@ -21,12 +22,12 @@ class HotelStay():
             ",departure:" + self.__departure + "}"
 
     @property
-    def idCard(self):
+    def id_card(self):
         """Property that represents the product_id of the patient"""
         return self.__idcard
 
-    @idCard.setter
-    def icCard(self, value):
+    @id_card.setter
+    def ic_card(self, value):
         self.__idcard = value
 
     @property
