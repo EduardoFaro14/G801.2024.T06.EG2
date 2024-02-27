@@ -1,4 +1,4 @@
-class HotelManagementException(Exception):
+class hotelManagementException(Exception):
     """gestión """
     def __init__(self, message):
         self.__message = message

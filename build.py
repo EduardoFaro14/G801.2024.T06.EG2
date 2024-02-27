@@ -8,10 +8,10 @@ use_plugin("python.coverage")
 use_plugin("python.distutils")
 
 
-name = "G801.2024.T06.EG2"
-default_task = "publish"
+NAME = "G801.2024.T06.EG2"
+DEFAULT_TASK = "publish"
 
 
 @init
-def set_properties(project):
+def SetProperties(project):
     pass

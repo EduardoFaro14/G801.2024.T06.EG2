@@ -2,7 +2,7 @@
 from datetime import datetime
 import hashlib
 
-class HotelStay():
+class hotelStay():
     """Gestión de estancia"""
     def __init__(self, idcard, localizer, numdays, room_type):
         self.__alg = "SHA-256"

@@ -4,7 +4,7 @@ import hashlib
 from datetime import datetime
 
 
-class HotelReservation:
+class hotelReservation:
     """Reservas"""
 
     def __init__(self, id_card, creditcard_numb, name_and_surname,
