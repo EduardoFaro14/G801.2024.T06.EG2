@@ -8,11 +8,10 @@ class hotelReservation:
     """Reservas"""
 
     def __init__(self, id_card, creditcard_numb, name_and_surname,
-                 phone_number, room_type, num_days):
+                 phone_number, room_type, arrival, num_days):
         self.credit_card_number = creditcard_numb
         self.__idcard = id_card
-        justnow = datetime.utcnow()
-        self.arrival = datetime.timestamp(justnow)
+        self.__arrival = arrival
         self.name_surname = name_and_surname
         self.__phonenumber = phone_number
         self.__roomtype = room_type
