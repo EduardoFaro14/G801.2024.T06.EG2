@@ -1,3 +1,4 @@
+"""Modulo Setup"""
 #!/usr/bin/env python
 #   -*- coding: utf-8 -*-
 #
@@ -40,14 +41,15 @@ if py2:
 
 
 def InstallPyb():
+    """funcion InstallPyb"""
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "install", "pybuilder"])
-    except subprocess.CalledProcessError as e:
-        sys.exit(e.returncode)
+    except subprocess.CalledProcessError as eR:
+        sys.exit(eR.returncode)
 
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-exit_code = 0
+EXIT_CODE = 0
 
 try:
     subprocess.check_call(["pyb", "--version"])
@@ -69,8 +71,8 @@ try:
         raise RuntimeError("PyBuilder build failed")
 
     from pybuilder.reactor import Reactor
-    reactor = Reactor.current_instance()
-    project = reactor.project
+    REACTOR = Reactor.current_instance()
+    project = REACTOR.project
     dist_dir = project.expand_path("$dir_dist")
 
     for src_file in glob.glob(os.path.join(dist_dir, "*")):
@@ -86,4 +88,4 @@ try:
     subprocess.check_call([sys.executable, "setup.py"] + setup_args, cwd=script_dir)
 except subprocess.CalledProcessError as e:
     exit_code = e.returncode
-sys.exit(exit_code)
+sys.exit(EXIT_CODE)

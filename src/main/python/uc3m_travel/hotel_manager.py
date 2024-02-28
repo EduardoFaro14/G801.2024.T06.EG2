@@ -1,7 +1,8 @@
+"""Modulo hotelManager"""
 import json
 from luhn import verify
-from .hotelManagementException import hotelManagementException
-from .hotelReservation import hotelReservation
+from .hotel_management_exception import hotelManagementException
+from .hotel_reservation import hotelReservation
 class hotelManager:
     def __init__(self):
         pass

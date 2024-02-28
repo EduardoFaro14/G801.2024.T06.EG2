@@ -1,4 +1,4 @@
-#   -*- coding: utf-8 -*-
+""" Modulo pybuilder"""
 from pybuilder.core import use_plugin, init
 
 use_plugin("python.core")
@@ -13,5 +13,6 @@ DEFAULT_TASK = "publish"
 
 
 @init
+
 def SetProperties(project):
-    pass
+    """este es el init"""

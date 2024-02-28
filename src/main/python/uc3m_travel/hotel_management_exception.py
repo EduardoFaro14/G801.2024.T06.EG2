@@ -1,3 +1,4 @@
+"""Modulo hotelManagementException"""
 class hotelManagementException(Exception):
     """gestión """
     def __init__(self, message):
@@ -12,4 +13,3 @@ class hotelManagementException(Exception):
     @message.setter
     def message(self,value):
         self.__message = value
-
