@@ -4,6 +4,7 @@ from luhn import verify
 from .hotel_management_exception import hotelManagementException
 from .hotel_reservation import hotelReservation
 class hotelManager:
+    """ Esta clase comprueba que la tarjeta sea válida y lee los datos de json"""
     def __init__(self):
         pass
 
