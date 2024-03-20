@@ -75,7 +75,7 @@ class hotelManager:
             json.dump(reservas, f, indent=4)
 
     def room_reservation(self, creditCardNumber, idCard, nameSurname, phoneNumber, roomType, arrival, numDays):
-        if (self.validatecreditcard(creditCardNumber) and es.nif.isvalid(idCard) and 10 <= nameSurname <= 50 and len(nameSurname.split()) >= 2 and len(phoneNumber) == 9 and (roomType == "single" or roomType == "double" or roomType == "suite") and self.validar_formato_fecha(arrival) and 1 <= numDays <= 10):
+        if (self.validatecreditcard(creditCardNumber) and es.nif.validate(idCard) and 10 <= len(nameSurname) <= 50 and len(nameSurname.split()) >= 2 and len(phoneNumber) == 9 and (roomType == "single" or roomType == "double" or roomType == "suite") and self.validar_formato_fecha(arrival) and 1 <= numDays <= 10):
             localizador = hotelReservation(idCard, creditCardNumber, nameSurname, phoneNumber, roomType, numDays)
             self.guardar_reserva_en_archivo(localizador)
             return localizador
