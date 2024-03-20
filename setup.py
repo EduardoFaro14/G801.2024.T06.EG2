@@ -1,4 +1,3 @@
-"""Modulo Setup"""
 #!/usr/bin/env python
 #   -*- coding: utf-8 -*-
 #
@@ -37,30 +36,29 @@ from sys import version_info
 py3 = version_info[0] == 3
 py2 = not py3
 if py2:
-    fileNotFoundError = OSError
+    FileNotFoundError = OSError
 
 
-def InstallPyb():
-    """funcion InstallPyb"""
+def install_pyb():
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "install", "pybuilder"])
-    except subprocess.CalledProcessError as eR:
-        sys.exit(eR.returncode)
+    except subprocess.CalledProcessError as e:
+        sys.exit(e.returncode)
 
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-EXIT_CODE = 0
+exit_code = 0
 
 try:
     subprocess.check_call(["pyb", "--version"])
-except fileNotFoundError as e:
+except FileNotFoundError as e:
     if py3 or py2 and e.errno == 2:
-        InstallPyb()
+        install_pyb()
     else:
         raise
 except subprocess.CalledProcessError as e:
     if e.returncode == 127:
-        InstallPyb()
+        install_pyb()
     else:
         sys.exit(e.returncode)
 
@@ -71,8 +69,8 @@ try:
         raise RuntimeError("PyBuilder build failed")
 
     from pybuilder.reactor import Reactor
-    REACTOR = Reactor.current_instance()
-    project = REACTOR.project
+    reactor = Reactor.current_instance()
+    project = reactor.project
     dist_dir = project.expand_path("$dir_dist")
 
     for src_file in glob.glob(os.path.join(dist_dir, "*")):
@@ -88,4 +86,4 @@ try:
     subprocess.check_call([sys.executable, "setup.py"] + setup_args, cwd=script_dir)
 except subprocess.CalledProcessError as e:
     exit_code = e.returncode
-sys.exit(EXIT_CODE)
+sys.exit(exit_code)

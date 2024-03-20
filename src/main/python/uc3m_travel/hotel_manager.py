@@ -37,3 +37,6 @@ class hotelManager:
 
         # Close the file
         return req
+
+
+    def room_reservation(self, creditCardNumber, idCard, nameSurname, phoneNumber, roomType, arrival, numDays):

@@ -1,4 +1,4 @@
-""" Modulo pybuilder"""
+#   -*- coding: utf-8 -*-
 from pybuilder.core import use_plugin, init
 
 use_plugin("python.core")
@@ -8,11 +8,10 @@ use_plugin("python.coverage")
 use_plugin("python.distutils")
 
 
-NAME = "G801.2024.T06.EG2"
-DEFAULT_TASK = "publish"
+name = "EG2"
+default_task = "publish"
 
 
 @init
-
-def SetProperties(project):
-    """este es el init"""
+def set_properties(project):
+    pass
