@@ -1,0 +1,323 @@
+[
+{
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+
+    {
+  "CreditCard": "1134567890134567",
+  "IdCard":"87654321Z",
+  "NameSurname": "CARMEN PEREZ",
+  "phoneNumber": "911234568",
+  "RoomType": "Double",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+    {
+  "CreditCard": "4005032839096989",
+  "IdCard":"12345678J",
+  "NameSurname": "JOSE LOPEZ IGLESIAS",
+  "phoneNumber": "911234569",
+  "RoomType": "Suite",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+
+{
+  "CreditCard": "5555555555554442",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "555555555555444a",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "55555555555544440",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "555555555555440",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678ZJ",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"123456789Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"1234567Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "12345 67890",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSETORRES",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ SERRANO GONZALEZ FERNANDEZ JIMENEZ MARTI",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPE",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE   LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": " JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "91123456a",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "9112345678",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "91123456",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "PREMIUM",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "32/01/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "0/06/2024",
+  "NumDays": "2",
+},
+
+   {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "31/06/2024",
+  "NumDays": "2",
+},
+
+   {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "29/02/2025",
+  "NumDays": "2",
+},
+
+   {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "30/02/2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14-06-2024",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2022",
+  "NumDays": "2",
+},
+
+  {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "11",
+},
+
+   {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "0",
+},
+
+    {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "prueba",
+},
+
+    {
+  "CreditCard": "5555555555554444",
+  "IdCard":"12345678Z",
+  "NameSurname": "JOSE LOPEZ",
+  "phoneNumber": "911234567",
+  "RoomType": "SINGLE",
+  "Arrival": "14/06/2024",
+  "NumDays": "2",
+}
+]
