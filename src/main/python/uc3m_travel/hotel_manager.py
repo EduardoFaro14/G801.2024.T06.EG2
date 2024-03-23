@@ -2,8 +2,8 @@
 import json
 import os
 from luhn import verify
-from .hotel_management_exception import hotelManagementException
-from .hotel_reservation import hotelReservation
+from uc3m_travel.hotel_management_exception import hotelManagementException
+from uc3m_travel.hotel_reservation import hotelReservation
 from stdnum import es
 from datetime import datetime
 
@@ -75,8 +75,8 @@ class hotelManager:
             json.dump(reservas, f, indent=4)
 
     def room_reservation(self, creditCardNumber, idCard, nameSurname, phoneNumber, roomType, arrival, numDays):
-        if (self.validatecreditcard(creditCardNumber) and es.nif.validate(idCard) and 10 <= len(nameSurname) <= 50 and len(nameSurname.split()) >= 2 and len(phoneNumber) == 9 and (roomType == "single" or roomType == "double" or roomType == "suite") and self.validar_formato_fecha(arrival) and 1 <= numDays <= 10):
-            localizador = hotelReservation(idCard, creditCardNumber, nameSurname, phoneNumber, roomType, numDays)
+        if (self.validatecreditcard(creditCardNumber) and len(creditCardNumber)==16  and es.nif.validate(idCard) and len(idCard)==9 and 10 <= len(nameSurname) <= 50 and len(nameSurname.split()) >= 2 and len(phoneNumber) == 9 and phoneNumber.isdigit() and (roomType == "single" or roomType == "double" or roomType == "suite") and self.validar_formato_fecha(arrival) and len(arrival)==10 and 1 <= numDays <= 10):
+            localizador = hotelReservation(idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
             self.guardar_reserva_en_archivo(localizador)
             return localizador
         else:

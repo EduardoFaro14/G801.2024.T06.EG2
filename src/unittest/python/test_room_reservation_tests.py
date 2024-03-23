@@ -30,6 +30,18 @@ class testRoomResevation(unittest.TestCase):
                                                 input_data["roomType"], input_data["arrival"],
                                                 input_data["numDays"])
                 self.assertEqual(localizer, "5555555555554444")
+                try:
+                    with open(self.__ path_data + "/all_bookings.json", encoding='UTF-8', mode="r") as f:
+                        bookings = json.load(f)
+                    except FileNotFoundError as e:
+                    raise HotelManagementException("Wrong file or file path") from e
+                    except json.JSONDecodeError:
+                    bookings = []
+                    booking_found = False
+                    for booking in bookings:
+                        if booking["idCard"] == input_data["idCard"]:
+                            booking_found = True
+                    self.assertTrue(booking_found)
 
     def test_credit_card_number_tc2(self):
         """ TestCase: TC2 - Expected KO. Checks Card Number is K0"""
