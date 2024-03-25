@@ -9,10 +9,10 @@ class hotelReservation:
 
     def __init__(self, id_card, creditcard_numb, arrival, name_and_surname,
                  phone_number, room_type, num_days):
-        self.credit_card_number = creditcard_numb
+        self.__credit_card_number = creditcard_numb
         self.__idcard = id_card
         self.__arrival = arrival
-        self.name_surname = name_and_surname
+        self.__name_surname = name_and_surname
         self.__phonenumber = phone_number
         self.__roomtype = room_type
         self.__num_days = num_days
@@ -21,8 +21,8 @@ class hotelReservation:
         """return a json string with the elements required to calculate the localizer"""
         # VERY IMPORTANT: JSON KEYS CANNOT BE RENAMED
         jsoninfo = {"id_card": self.__idcard,
-                    "name_surname": self.name_surname,
-                    "credit_card": self.credit_card_number,
+                    "name_surname": self.__name_surname,
+                    "credit_card": self.__credit_card_number,
                     "phone_number:": self.__phonenumber,
                     "arrival_date": self.__arrival,
                     "num_days": self.__num_days,

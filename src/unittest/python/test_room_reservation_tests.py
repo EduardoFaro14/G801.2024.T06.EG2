@@ -1,32 +1,27 @@
 import json
 import unittest
 import os.path
-from unittests import TestCase
+from unittest import TestCase
 from uc3m_travel.hotel_manager import hotelManager
 from uc3m_travel.hotel_management_exception import hotelManagementException
 from pathlib import Path
 
-class testRoomResevation(unittest.TestCase):
+class testRoomResevation(TestCase):
 
-    __path_tests = str("C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
-    __path_data = str("C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
-
-    def __init__(self, methodName: str = "runTest"):
-        super().__init__(methodName)
-        self.__ = None
-
+    __path_tests = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
+    __path_data = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
     @classmethod
-    def setUpClass(self):
+    def setUpClass(cls):
         try:
-            with open(self.__path_tests + "test1.json", encoding="UTF-8", mode="r") as f:
+            with open(cls.__path_tests + r"\test1.json", encoding="UTF-8", mode="r") as f:
                 test_data_credit_card = json.load(f)
         except FileNotFoundError as e:
             raise hotelManagementException("Wrong file or file path") from e
         except json.JSONDecodeError:
             test_data_credit_card = []
-        self.__test_data_credit_card = test_data_credit_card
-        JSON_FILES_PATH = self.__path_tests
-        file_store = JSON_FILES_PATH + "test1.json"
+        cls.__test_data_credit_card = test_data_credit_card
+        JSON_FILES_PATH = cls.__path_tests
+        file_store = JSON_FILES_PATH + r"\reservas.json"
         if os.path.isfile(file_store):
             os.remove(file_store)
 
@@ -36,10 +31,10 @@ class testRoomResevation(unittest.TestCase):
                 with self.subTest(input_data["idTest"]):
                     print("Executing: " + input_data["idTest"])
                     hm = hotelManager()
-                localizer = hm.room_reservation(input_data["creditCardNumber"],input_data["idCard"],
-                                                input_data["nameSurname"], input_data["phoneNumber"],
-                                                input_data["roomType"], input_data["arrival"],
-                                                input_data["numDays"])
+                localizer = hm.room_reservation(input_data["CreditCard"],input_data["IdCard"],
+                                                input_data["NameSurname"], input_data["phoneNumber"],
+                                                input_data["RoomType"], input_data["Arrival"],
+                                                input_data["NumDays"])
                 match input_data["idTest"]:
                     case "TC1":
                         self.assertEqual(localizer, "")
@@ -56,10 +51,10 @@ class testRoomResevation(unittest.TestCase):
                     print("Executing: " + input_data["idTest"])
                     hm = hotelManager()
                     with self.assertRaises(hotelManagementException) as result:
-                        hm.room_reservation(input_data["creditCardNumber"], input_data["idCard"],
-                                            input_data["nameSurname"], input_data["phoneNumber"],
-                                            input_data["roomType"], input_data["arrival"],
-                                            input_data["numDays"])
+                        hm.room_reservation(input_data["CreditCard"], input_data["IdCard"],
+                                            input_data["NameSurname"], input_data["phoneNumber"],
+                                            input_data["RoomType"], input_data["Arrival"],
+                                            input_data["NumDays"])
                     match input_data["idTest"]:
                         case "TC4":
                             self.assertEqual(result.exception.message, "Número de tarjeta de crédito erroneo, algoritmo de luhn")
@@ -83,25 +78,25 @@ class testRoomResevation(unittest.TestCase):
                                              "Número de DNI erroneo, menos de 9 caracteres")
                         case "TC11":
                             self.assertEqual(result.exception.message,
-                                             "Número de nombre y apellido erroneo, tipo de dato")
+                                             "Nombre y apellido erroneo, tipo de dato")
                         case "TC12":
                             self.assertEqual(result.exception.message,
-                                             "Número de nombre y apellido erroneo, no hay espacios")
+                                             "Nombre y apellido erroneo, no hay espacios")
                         case "TC13":
                             self.assertEqual(result.exception.message,
-                                             "Número de nombre y apellido erroneo, más de 50 caracteres")
+                                             "Nombre y apellido erroneo, más de 50 caracteres")
                         case "TC14":
                             self.assertEqual(result.exception.message,
-                                             "Número de nombre y apellido erroneo, menos de 10 caracteres")
+                                             "Nombre y apellido erroneo, menos de 10 caracteres")
                         case "TC15":
                             self.assertEqual(result.exception.message,
-                                             "Número de nombre y apellido erroneo, dos espacios seguidos")
+                                             "Nombre y apellido erroneo, dos espacios seguidos")
                         case "TC16":
                             self.assertEqual(result.exception.message,
-                                             "Número de nombre y apellido erroneo, primer caracter es un espacio")
+                                             "Nombre y apellido erroneo, primer caracter es un espacio")
                         case "TC17":
                             self.assertEqual(result.exception.message,
-                                             "Número de nombre y apellido erroneo, último caracter es un espacio")
+                                             "Nombre y apellido erroneo, último caracter es un espacio")
                         case "TC18":
                             self.assertEqual(result.exception.message,
                                              "Número de teléfono erroneo, tipo de dato")

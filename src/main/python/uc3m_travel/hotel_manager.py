@@ -27,20 +27,7 @@ class hotelManager:
         except json.JSONDecodeError as e:
             raise hotelManagementException("JSON Decode Error - Wrong JSON Format") from e
 
-
-        try:
-            c = data["CreditCard"]
-            p = data["phoneNumber"]
-            req = hotelReservation(id_card="12345678Z", creditcard_numb=c,
-                                   name_and_surname="John Doe",
-                                   phone_number=p, room_type="single", num_days=3)
-        except KeyError as e:
-            raise hotelManagementException("JSON Decode Error - Invalid JSON Key") from e
-        if not self.validatecreditcard(c):
-            raise hotelManagementException("Invalid credit card number")
-
-        # Close the file
-        return req
+        return data
 
     def validar_formato_fecha(self, cadena):
         try:
@@ -50,7 +37,7 @@ class hotelManager:
         except ValueError:
             return False
 
-    def guardar_reserva_en_archivo(self, reserva):
+    def guardar_reserva_en_archivo(self, localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays):
         # Nombre del archivo donde se guardarán las reservas
         nombre_archivo = "reservas.json"
 
@@ -60,25 +47,97 @@ class hotelManager:
                 json.dump([], f)
 
         # Leer las reservas existentes desde el archivo
-        with open(nombre_archivo, 'r') as f:
-            reservas = json.load(f)
-
+        reservas = self.readdatafrom_json(nombre_archivo)
+        for i in reservas:
+            if i["localizer"] == localizador:
+                return True
         # Agregar la nueva reserva al archivo de reservas
         reserva_info = {
-            "localizer": reserva.localizer,
-            "data": str(reserva)
+            "localizer": localizador,
+            "CreditCard": creditCardNumber,
+            "IdCard": idCard,
+            "NameSurname": nameSurname,
+            "phoneNumber": phoneNumber,
+            "RoomType": roomType,
+            "Arrival": arrival,
+            "NumDays": numDays,
         }
+
         reservas.append(reserva_info)
 
         # Guardar las reservas actualizadas en el archivo
         with open(nombre_archivo, 'w') as f:
             json.dump(reservas, f, indent=4)
+        return True
 
     def room_reservation(self, creditCardNumber, idCard, nameSurname, phoneNumber, roomType, arrival, numDays):
-        if (self.validatecreditcard(creditCardNumber) and len(creditCardNumber)==16  and es.nif.validate(idCard) and len(idCard)==9 and 10 <= len(nameSurname) <= 50 and len(nameSurname.split()) >= 2 and len(phoneNumber) == 9 and phoneNumber.isdigit() and (roomType == "single" or roomType == "double" or roomType == "suite") and self.validar_formato_fecha(arrival) and len(arrival)==10 and 1 <= numDays <= 10):
-            localizador = hotelReservation(idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
-            self.guardar_reserva_en_archivo(localizador)
-            return localizador
-        else:
-            print("Error, algo falla")
-            raise hotelManagementException("Error en la reserva")
+        if len(creditCardNumber) > 16:
+            raise hotelManagementException("Número de tarjeta de crédito erroneo, más de 16 dígitos")
+        if len(creditCardNumber) < 16:
+            raise hotelManagementException("Número de tarjeta de crédito erroneo, menos de 16 dígitos")
+        for i in creditCardNumber:
+            if not i.isdigit():
+                raise hotelManagementException("Número de tarjeta de crédito erroneo, tipo de dato")
+        if not self.validatecreditcard(creditCardNumber):
+            raise hotelManagementException("Número de tarjeta de crédito erroneo, algoritmo de luhn")
+        if len(idCard) > 9:
+            raise hotelManagementException("Número de DNI erroneo, más de 9 caracteres")
+        if len(idCard) < 9:
+            raise hotelManagementException("Número de DNI erroneo, menos de 9 caracteres")
+        if not es.nif.validate(idCard):
+            raise hotelManagementException("Número de DNI erroneo, algoritmo de nift")
+        if len(nameSurname) > 50:
+            raise hotelManagementException("Nombre y apellido erroneo, más de 50 caracteres")
+        if len(nameSurname) < 10:
+            raise hotelManagementException("Nombre y apellido erroneo, menos de 10 caracteres")
+        for i in range(1, len(nameSurname)):
+            if nameSurname[i] == ' ' and nameSurname[i - 1] == ' ':
+                raise hotelManagementException("Nombre y apellido erroneo, dos espacios seguidos")
+        if nameSurname[0]==' ':
+            raise hotelManagementException("Nombre y apellido erroneo, primer caracter es un espacio")
+        if nameSurname[:-1] == ' ':
+            raise hotelManagementException("Nombre y apellido erroneo, último caracter es un espacio")
+        for i in nameSurname:
+            if not i.isalpha() or i.isspace():
+                raise hotelManagementException("Nombre y apellido erroneo, tipo de dato")
+        if not ' ' in nameSurname:
+            raise hotelManagementException("Nombre y apellido erroneo, no hay espacios")
+        if len(phoneNumber) > 9:
+            raise hotelManagementException("Número de teléfono erroneo, más de 9 dígitos")
+        if len(phoneNumber) < 9:
+            raise hotelManagementException("Número de teléfono erroneo, menos de 9 dígitos")
+        for i in phoneNumber:
+            if not i.isdigit():
+                raise hotelManagementException("Número de teléfono erroneo, tipo de dato")
+        if not roomType == "single" or roomType == "double" or roomType == "suite":
+            raise hotelManagementException("Tipo de habitación erronea, no es ni single ni double ni suite")
+        if self.validar_formato_fecha(arrival) == False:
+            raise hotelManagementException("Fecha de llegada erronea, tipo de dato")
+        if datetime.now() > arrival:
+            raise hotelManagementException("Fecha de llegada erronea, fecha anterior a la actual")
+        if arrival.day < 1:
+            raise hotelManagementException("Fecha de llegada erronea, menos de día 1")
+        month=arrival.month
+        if month in [1, 3, 5, 7, 8, 10, 12]:
+            if arrival.day > 31:
+                raise hotelManagementException("Fecha de llegada erronea, más de 31 días en un mes de 31")
+        if month in [4, 6, 9, 11]:
+            if arrival.day > 30:
+                raise hotelManagementException("Fecha de llegada erronea, más de 30 días en un mes de 30")
+        if month in [2] and ((arrival.year % 4 == 0 and arrival.year % 100 != 0) or (arrival.year % 400 == 0)):
+            if arrival.day > 29:
+                raise hotelManagementException("Fecha de llegada erronea, más de 29 días en febrero bisiesto")
+        if month in [2] and not ((arrival.year % 4 == 0 and arrival.year % 100 != 0) or (arrival.year % 400 == 0)):
+            if arrival.day > 28:
+                raise hotelManagementException("Fecha de llegada erronea, más de 28 días en febrero no bisiesto")
+        if numDays > 10:
+            raise hotelManagementException("Número de días erroneo, más de 10")
+        if numDays < 1:
+            raise hotelManagementException("Número de días erroneo, menos de 1")
+        if not numDays.isdigit():
+            raise hotelManagementException("Número de días erroneo, tipo de dato")
+
+        reserva_hotel = hotelReservation(idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
+        localizador = reserva_hotel.localizer
+        self.guardar_reserva_en_archivo(localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
+        return localizador
