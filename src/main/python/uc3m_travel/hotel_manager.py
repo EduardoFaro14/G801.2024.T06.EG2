@@ -4,7 +4,7 @@ import os
 from luhn import verify
 from uc3m_travel.hotel_management_exception import hotelManagementException
 from uc3m_travel.hotel_reservation import hotelReservation
-from stdnum import es
+from stdnum.es import nif
 from datetime import datetime
 
 class hotelManager:
@@ -84,7 +84,7 @@ class hotelManager:
             raise hotelManagementException("Número de DNI erroneo, más de 9 caracteres")
         if len(idCard) < 9:
             raise hotelManagementException("Número de DNI erroneo, menos de 9 caracteres")
-        if not es.nif.validate(idCard):
+        if not nif.is_valid(idCard):
             raise hotelManagementException("Número de DNI erroneo, algoritmo de nift")
         if len(nameSurname) > 50:
             raise hotelManagementException("Nombre y apellido erroneo, más de 50 caracteres")
@@ -95,11 +95,10 @@ class hotelManager:
                 raise hotelManagementException("Nombre y apellido erroneo, dos espacios seguidos")
         if nameSurname[0]==' ':
             raise hotelManagementException("Nombre y apellido erroneo, primer caracter es un espacio")
-        if nameSurname[:-1] == ' ':
+        if nameSurname.endswith(' '):
             raise hotelManagementException("Nombre y apellido erroneo, último caracter es un espacio")
-        for i in nameSurname:
-            if not i.isalpha() or i.isspace():
-                raise hotelManagementException("Nombre y apellido erroneo, tipo de dato")
+        if not all(i.isalpha() or i.isspace() for i in nameSurname):
+            raise hotelManagementException("Nombre y apellido erroneo, tipo de dato")
         if not ' ' in nameSurname:
             raise hotelManagementException("Nombre y apellido erroneo, no hay espacios")
         if len(phoneNumber) > 9:
@@ -109,27 +108,27 @@ class hotelManager:
         for i in phoneNumber:
             if not i.isdigit():
                 raise hotelManagementException("Número de teléfono erroneo, tipo de dato")
-        if not roomType == "single" or roomType == "double" or roomType == "suite":
+        if roomType not in ["SINGLE", "DOUBLE", "SUITE"]:
             raise hotelManagementException("Tipo de habitación erronea, no es ni single ni double ni suite")
+        dd, mm, yyyy = map(int, arrival.split('/'))
+        if dd < 1:
+            raise hotelManagementException("Fecha de llegada erronea, menos de día 1")
+        if mm in [1, 3, 5, 7, 8, 10, 12]:
+            if dd > 31:
+                raise hotelManagementException("Fecha de llegada erronea, más de 31 días en un mes de 31")
+        if mm in [4, 6, 9, 11]:
+            if dd > 30:
+                raise hotelManagementException("Fecha de llegada erronea, más de 30 días en un mes de 30")
+        if mm in [2] and ((yyyy % 4 == 0 and yyyy % 100 != 0) or (yyyy % 400 == 0)):
+            if dd > 29:
+                raise hotelManagementException("Fecha de llegada erronea, más de 29 días en febrero bisiesto")
+        if mm in [2] and not ((yyyy % 4 == 0 and yyyy % 100 != 0) or (yyyy % 400 == 0)):
+            if dd > 28:
+                raise hotelManagementException("Fecha de llegada erronea, más de 28 días en febrero no bisiesto")
         if self.validar_formato_fecha(arrival) == False:
             raise hotelManagementException("Fecha de llegada erronea, tipo de dato")
-        if datetime.now() > arrival:
+        if datetime.now() > datetime.strptime(arrival, '%d/%m/%Y'):
             raise hotelManagementException("Fecha de llegada erronea, fecha anterior a la actual")
-        if arrival.day < 1:
-            raise hotelManagementException("Fecha de llegada erronea, menos de día 1")
-        month=arrival.month
-        if month in [1, 3, 5, 7, 8, 10, 12]:
-            if arrival.day > 31:
-                raise hotelManagementException("Fecha de llegada erronea, más de 31 días en un mes de 31")
-        if month in [4, 6, 9, 11]:
-            if arrival.day > 30:
-                raise hotelManagementException("Fecha de llegada erronea, más de 30 días en un mes de 30")
-        if month in [2] and ((arrival.year % 4 == 0 and arrival.year % 100 != 0) or (arrival.year % 400 == 0)):
-            if arrival.day > 29:
-                raise hotelManagementException("Fecha de llegada erronea, más de 29 días en febrero bisiesto")
-        if month in [2] and not ((arrival.year % 4 == 0 and arrival.year % 100 != 0) or (arrival.year % 400 == 0)):
-            if arrival.day > 28:
-                raise hotelManagementException("Fecha de llegada erronea, más de 28 días en febrero no bisiesto")
         if numDays > 10:
             raise hotelManagementException("Número de días erroneo, más de 10")
         if numDays < 1:
