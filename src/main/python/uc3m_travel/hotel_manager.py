@@ -140,3 +140,52 @@ class hotelManager:
         localizador = reserva_hotel.localizer
         self.guardar_reserva_en_archivo(localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
         return localizador
+
+    def guest_arrival(self, input_file, stays_file):
+        try:
+            # Lee el archivo de entrada y obtener los datos (verificar existencia y formato JSON)
+            data = self.readdatafrom_json(input_file)
+        except hotelManagementException as e:
+            raise hotelManagementException(str(e))
+
+        # Verificar si el JSON tiene la estructura esperada
+        if "Localizer" not in data or "IdCard" not in data:
+            raise hotelManagementException("El JSON no tiene la estructura esperada.")
+
+        localizer = data["Localizer"]
+        idcard = data["IdCard"]
+
+        # Verificar si el localizador existe en el fichero de estancias
+        try:
+            with open(stays_file, 'r') as file:
+                stays_data = json.load(file)
+        except FileNotFoundError:
+            stays_data = {}
+
+        if localizer not in stays_data:
+            raise hotelManagementException("El localizador no se corresponde con los datos almacenados.")
+
+        # Obtener los datos de la estancia del localizador
+        stay_data = stays_data[localizer]
+
+        if idcard != stay_data["idcard"]:
+            raise hotelManagementException("El DNI no se corresponde con los datos almacenados.")
+
+        # Obtener la fecha de llegada esperada
+        expected_arrival = stay_data["arrival"]
+
+        # Verificar si la fecha de llegada coincide con la esperada
+        if expected_arrival != data["arrival"]:
+            raise hotelManagementException("La fecha de llegada no se corresponde con la fecha de reserva.")
+
+        # Crear objeto HotelStay
+        hotel_stay = HotelStay(idcard, localizer, 1, stay_data["typ"])
+
+        # Guardar la estancia y la clave de la habitación en el fichero de estancias
+        stays_data[localizer]["room_key"] = hotel_stay.room_key
+        with open(stays_file, 'w') as file:
+            json.dump(stays_data, file, indent=4)
+
+        # Devolver la clave de la habitación
+        return hotel_stay.room_key
+
