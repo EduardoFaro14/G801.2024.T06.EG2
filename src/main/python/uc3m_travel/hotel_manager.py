@@ -30,29 +30,17 @@ class hotelManager:
         return data
 
     def validar_formato_fecha(self, cadena):
-        try:
-            # Intentamos analizar la cadena como una fecha en el formato especificado
-            datetime.strptime(cadena, '%d/%m/%Y')
+        if len(cadena) == 10 and cadena[2] == '/' and cadena[5] == '/' and cadena[0].isdigit() and cadena[1].isdigit() and cadena[3].isdigit() and cadena[4].isdigit() and cadena[6:].isdigit():
             return True
-        except ValueError:
+        else:
             return False
 
     def guardar_reserva_en_archivo(self, localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays):
         # Nombre del archivo donde se guardarán las reservas
-        nombre_archivo = "reservas.json"
+        nombre_archivo = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas.json"
 
-        # Si el archivo no existe, crearlo e inicializarlo con una lista vacía
-        if not os.path.exists(nombre_archivo):
-            with open(nombre_archivo, 'w') as f:
-                json.dump([], f)
 
-        # Leer las reservas existentes desde el archivo
-        reservas = self.readdatafrom_json(nombre_archivo)
-        for i in reservas:
-            if i["localizer"] == localizador:
-                return True
-        # Agregar la nueva reserva al archivo de reservas
-        reserva_info = {
+        nuevo_registro = {
             "localizer": localizador,
             "CreditCard": creditCardNumber,
             "IdCard": idCard,
@@ -60,15 +48,21 @@ class hotelManager:
             "phoneNumber": phoneNumber,
             "RoomType": roomType,
             "Arrival": arrival,
-            "NumDays": numDays,
+            "NumDays": numDays
         }
-
-        reservas.append(reserva_info)
-
-        # Guardar las reservas actualizadas en el archivo
-        with open(nombre_archivo, 'w') as f:
-            json.dump(reservas, f, indent=4)
-        return True
+        # Si el archivo no existe, crearlo e inicializarlo con los nuevos datos
+        if not os.path.exists(nombre_archivo):
+            with open(nombre_archivo, 'w') as f:
+                json.dump([nuevo_registro], f, indent=4)
+        else:
+            with open(nombre_archivo, 'r') as f:
+                contenido = json.load(f)
+            if not any(registro['localizer'] == localizador for registro in contenido):
+                contenido.append(nuevo_registro)
+            else:
+                raise hotelManagementException("Número reserva erroneo, más de una reserva")
+            with open(nombre_archivo, 'w') as f:
+                json.dump(contenido, f, indent=4)
 
     def room_reservation(self, creditCardNumber, idCard, nameSurname, phoneNumber, roomType, arrival, numDays):
         if len(creditCardNumber) > 16:
@@ -110,6 +104,8 @@ class hotelManager:
                 raise hotelManagementException("Número de teléfono erroneo, tipo de dato")
         if roomType not in ["SINGLE", "DOUBLE", "SUITE"]:
             raise hotelManagementException("Tipo de habitación erronea, no es ni single ni double ni suite")
+        if self.validar_formato_fecha(arrival) == False:
+            raise hotelManagementException("Fecha de llegada erronea, tipo de dato")
         dd, mm, yyyy = map(int, arrival.split('/'))
         if dd < 1:
             raise hotelManagementException("Fecha de llegada erronea, menos de día 1")
@@ -125,16 +121,15 @@ class hotelManager:
         if mm in [2] and not ((yyyy % 4 == 0 and yyyy % 100 != 0) or (yyyy % 400 == 0)):
             if dd > 28:
                 raise hotelManagementException("Fecha de llegada erronea, más de 28 días en febrero no bisiesto")
-        if self.validar_formato_fecha(arrival) == False:
-            raise hotelManagementException("Fecha de llegada erronea, tipo de dato")
         if datetime.now() > datetime.strptime(arrival, '%d/%m/%Y'):
             raise hotelManagementException("Fecha de llegada erronea, fecha anterior a la actual")
-        if numDays > 10:
-            raise hotelManagementException("Número de días erroneo, más de 10")
-        if numDays < 1:
-            raise hotelManagementException("Número de días erroneo, menos de 1")
         if not numDays.isdigit():
             raise hotelManagementException("Número de días erroneo, tipo de dato")
+        numeroDias = int(numDays)
+        if numeroDias < 1:
+            raise hotelManagementException("Número de días erroneo, menos de 1")
+        if numeroDias > 10:
+            raise hotelManagementException("Número de días erroneo, más de 10")
 
         reserva_hotel = hotelReservation(idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
         localizador = reserva_hotel.localizer

@@ -37,11 +37,11 @@ class testRoomResevation(TestCase):
                                                 input_data["NumDays"])
                 match input_data["idTest"]:
                     case "TC1":
-                        self.assertEqual(localizer, "")
+                        self.assertEqual(localizer, "43d9d717214b9f6858bd2b55be901645")
                     case "TC2":
-                        self.assertEqual(localizer, "")
+                        self.assertEqual(localizer, "ec4a527e598a64d8dcf38b9d68b4da9e")
                     case "TC3":
-                        self.assertEqual(localizer, "")
+                        self.assertEqual(localizer, "19102761a0e960cb8cb97d39a71533e5")
 
     def test_credit_card_number_tc2(self):
         """ TestCase: TC2 - Expected KO. Checks Card Number is K0"""

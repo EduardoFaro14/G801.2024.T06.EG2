@@ -14,10 +14,10 @@
 {
   "idTest": "TC2",
   "CreditCard": "1134567890134567",
-  "IdCard":"87654321Z",
+  "IdCard":"12345679S",
   "NameSurname": "CARMEN PEREZ",
   "phoneNumber": "911234568",
-  "RoomType": "Double",
+  "RoomType": "DOUBLE",
   "Arrival": "14/06/2024",
   "NumDays": "2"
 },
@@ -25,10 +25,10 @@
 {
   "idTest": "TC3",
   "CreditCard": "4005032839096989",
-  "IdCard":"12345678J",
+  "IdCard":"11111111H",
   "NameSurname": "JOSE LOPEZ IGLESIAS",
   "phoneNumber": "911234569",
-  "RoomType": "Suite",
+  "RoomType": "SUITE",
   "Arrival": "14/06/2024",
   "NumDays": "2"
 },
@@ -250,7 +250,7 @@
   "NameSurname": "JOSE LOPEZ",
   "phoneNumber": "911234567",
   "RoomType": "SINGLE",
-  "Arrival": "0/06/2025",
+  "Arrival": "00/06/2025",
   "NumDays": "2"
 },
 
