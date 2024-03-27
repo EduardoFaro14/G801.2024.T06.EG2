@@ -6,6 +6,7 @@ from uc3m_travel.hotel_management_exception import hotelManagementException
 from uc3m_travel.hotel_reservation import hotelReservation
 from stdnum.es import nif
 from datetime import datetime
+from uc3m_travel.hotel_stay import hotelStay
 
 class hotelManager:
     """ Esta clase comprueba que la tarjeta sea válida y lee los datos de json"""
@@ -138,44 +139,49 @@ class hotelManager:
 
     def guest_arrival(self, input_file):
         try:
-            # Lee el archivo de reservasf2.json  y verificar que existe y está en formato JSON
+            # Lee el archivo dado  y verificar que existe y está en formato JSON
             with open(input_file.json, 'r') as f:
-                datos_reservaf2 = json.load(f)
+                datosReservaf2 = json.load(f)
         except FileNotFoundError:
             raise hotelManagementException("No se encuentra el archivo reservasf2.json")
         except json.JSONDecodeError:
             raise hotelManagementException("El archivo de reservasf2 no está en formato JSON")
 
             # Verificar si el JSON tiene el Localizer y el IdCard
-        if "Localizer" not in datos_reservaf2 or "IdCard" not in datos_reservaf2:
+        if "Localizer" not in datosReservaf2 or "IdCard" not in datosReservaf2:
             raise hotelManagementException("Error, reservasf2.json no tiene Localizer o IdCard")
 
-        Localizer = datos_reservaf2["Localizer"]
-        IdCard = datos_reservaf2["IdCard"]
-        Arrival = datos_reservaf2["Arrival"]
+        localizer = datosReservaf2["Localizer"]
+        idCard = datosReservaf2["IdCard"]
 
         # verificar que el localizador fue almacenado en el fichero de reservas y
         # que el localizador coincide con los datos que estaban en el fichero
         try:
-            with open("reservas.json", 'r') as f:
-                datos_reservaf1 = json.load(f)
+            with open(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas.json", 'r') as f:
+                datosReservaf1 = json.load(f)
         except FileNotFoundError:
-            datos_reservaf1 = {}
+            datosReservaf1 = {}
 
-        Localizer2 = datos_reservaf1["Localizer"]
-        IdCard2 = datos_reservaf1["IdCard"]
-        Arrival2 = datos_reservaf1["Arrival"]
+        localizer2 = datosReservaf1["Localizer"]
+        idCard2 = datosReservaf1["IdCard"]
+        numDays = datosReservaf1["numDays"]
+        roomType = datosReservaf1["roomType"]
 
-        if Localizer != Localizer2:
+        if localizer != localizer2:
             raise hotelManagementException("El localizador de reservaf2 no se corresponde con el localizador en el archivo de reservaf1")
 
-        if IdCard != IdCard2:
+        if idCard != idCard2:
             raise hotelManagementException("El DNI de reservaf2 no corresponde con el DNI de reservaf1")
 
-        if Arrival != Arrival2:
-            raise hotelManagementException("La fecha de llegada no se corresponde con la fecha de la reserva")
+        hotelStay = hotelStay(idCard2, localizer2, numDays, roomType)
+        datosReservaFinal = {
+            "Localizer": localizer2,
+            "IdCard": idCard2,
+            "RoomType": roomType,
+            "Arrival": hotelStay.arrival,
+            "Departure": hotelStay.departure,
+            "roomKey": hotelStay.room_key
+        }
 
-        Hotel_Stay = HotelStay( )
 
-        room_key = hotel_stay.room_key
 
