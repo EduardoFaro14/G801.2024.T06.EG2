@@ -9,7 +9,7 @@ from pathlib import Path
 from datetime import datetime
 
 class testGuestArrival(TestCase):
-def test_guest_arrival_tests_valid(self): #TEST VALIDOS
+def test_guest_arrival_tests_valid(self): #TEST VALIDO
     for index, input_data in enumerate(self.__test_data_f2):
         if index + 1 in [1, 15]:
             test_id = "TC" + string(index + 1)

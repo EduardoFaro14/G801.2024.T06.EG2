@@ -41,7 +41,7 @@ class hotelManager:
 
 
         nuevo_registro = {
-            "localizer": localizador,
+            "Localizer": localizador,
             "CreditCard": creditCardNumber,
             "IdCard": idCard,
             "NameSurname": nameSurname,
@@ -136,51 +136,46 @@ class hotelManager:
         self.guardar_reserva_en_archivo(localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
         return localizador
 
-    def guest_arrival(self, input_file, stays_file):
+    def guest_arrival(self, input_file):
         try:
-            # Lee el archivo de entrada y obtener los datos (verificar existencia y formato JSON)
-            data = self.readdatafrom_json(input_file)
-        except hotelManagementException as e:
-            raise hotelManagementException(str(e))
-
-        # Verificar si el JSON tiene la estructura esperada
-        if "Localizer" not in data or "IdCard" not in data:
-            raise hotelManagementException("El JSON no tiene la estructura esperada.")
-
-        localizer = data["Localizer"]
-        idcard = data["IdCard"]
-
-        # Verificar si el localizador existe en el fichero de estancias
-        try:
-            with open(stays_file, 'r') as file:
-                stays_data = json.load(file)
+            # Lee el archivo de reservasf2.json  y verificar que existe y está en formato JSON
+            with open(input_file.json, 'r') as f:
+                datos_reservaf2 = json.load(f)
         except FileNotFoundError:
-            stays_data = {}
+            raise hotelManagementException("No se encuentra el archivo reservasf2.json")
+        except json.JSONDecodeError:
+            raise hotelManagementException("El archivo de reservasf2 no está en formato JSON")
 
-        if localizer not in stays_data:
-            raise hotelManagementException("El localizador no se corresponde con los datos almacenados.")
+            # Verificar si el JSON tiene el Localizer y el IdCard
+        if "Localizer" not in datos_reservaf2 or "IdCard" not in datos_reservaf2:
+            raise hotelManagementException("Error, reservasf2.json no tiene Localizer o IdCard")
 
-        # Obtener los datos de la estancia del localizador
-        stay_data = stays_data[localizer]
+        Localizer = datos_reservaf2["Localizer"]
+        IdCard = datos_reservaf2["IdCard"]
+        Arrival = datos_reservaf2["Arrival"]
 
-        if idcard != stay_data["idcard"]:
-            raise hotelManagementException("El DNI no se corresponde con los datos almacenados.")
+        # verificar que el localizador fue almacenado en el fichero de reservas y
+        # que el localizador coincide con los datos que estaban en el fichero
+        try:
+            with open("reservas.json", 'r') as f:
+                datos_reservaf1 = json.load(f)
+        except FileNotFoundError:
+            datos_reservaf1 = {}
 
-        # Obtener la fecha de llegada esperada
-        expected_arrival = stay_data["arrival"]
+        Localizer2 = datos_reservaf1["Localizer"]
+        IdCard2 = datos_reservaf1["IdCard"]
+        Arrival2 = datos_reservaf1["Arrival"]
 
-        # Verificar si la fecha de llegada coincide con la esperada
-        if expected_arrival != data["arrival"]:
-            raise hotelManagementException("La fecha de llegada no se corresponde con la fecha de reserva.")
+        if Localizer != Localizer2:
+            raise hotelManagementException("El localizador de reservaf2 no se corresponde con el localizador en el archivo de reservaf1")
 
-        # Crear objeto HotelStay
-        hotel_stay = HotelStay(idcard, localizer, 1, stay_data["typ"])
+        if IdCard != IdCard2:
+            raise hotelManagementException("El DNI de reservaf2 no corresponde con el DNI de reservaf1")
 
-        # Guardar la estancia y la clave de la habitación en el fichero de estancias
-        stays_data[localizer]["room_key"] = hotel_stay.room_key
-        with open(stays_file, 'w') as file:
-            json.dump(stays_data, file, indent=4)
+        if Arrival != Arrival2:
+            raise hotelManagementException("La fecha de llegada no se corresponde con la fecha de la reserva")
 
-        # Devolver la clave de la habitación
-        return hotel_stay.room_key
+        Hotel_Stay = HotelStay( )
+
+        room_key = hotel_stay.room_key
 
