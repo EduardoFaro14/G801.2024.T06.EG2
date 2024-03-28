@@ -2,6 +2,9 @@ import json
 import unittest
 import os.path
 from unittest import TestCase
+
+from tomlkit import string
+
 from uc3m_travel.hotel_manager import hotelManager
 from uc3m_travel.hotel_management_exception import hotelManagementException
 from uc3m_travel.hotel_stay import hotelStay
@@ -31,15 +34,31 @@ class testGuestArrival(TestCase):
             os.remove(fileStore)
 
 
-    def test_guest_arrival_tests_valid(self): #TEST VALIDO
-        for index, input_data in enumerate(self.__testf2_data):
+    def test_guest_arrival_tests_tc1(self): #TEST VALIDO
+        for index, inputData in enumerate(self.__testf2_data):
             if index + 1 in [1, 62, 63]:
-                test_id = "TC" + string(index + 1)
-                with self.subTest(test_id):
-                    print("Ejecutando: " + test_id + ": " + input_data)
-                    self.generate_tmp_test_data_file(input_data)
+                testId = "TC" + string(index + 1)
+                with self.subTest(testId):
+                    print("Ejecutando: " + testId + ": " + inputData)
+                    self.generate_tmp_test_data_file(inputData)
                     hm = hotelManager()
                     roomKey = hm.guest_arrival(self.__path_tests + self.__tmp_test_data_file)
-                    match test_id:
+                    match testId:
                         case "TC1":
+                            self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")
+
+    def test_guest_arrival_tests_tc2(self): #TEST INVALIDO
+        for index, inputData in enumerate(self.__testf2_data):
+            if index + 1 in [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+                            21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
+                            41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61]:
+                testId = "TC" + string(index + 1)
+                with self.subTest(testId):
+                    print("Ejecutando: " + testId + ": " + inputData)
+                    self.generate_tmp_test_data_file(inputData)
+                    hm = hotelManager()
+                    with self.assertRaises(hotelManagementException) as result:
+                        roomKey = hm.guest_arrival(self.__path_tests + self.__tmp_test_data_file)
+                    match testId:
+                        case "TC2":
                             self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")

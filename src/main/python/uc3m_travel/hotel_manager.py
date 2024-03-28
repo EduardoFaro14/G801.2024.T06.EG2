@@ -204,5 +204,5 @@ class hotelManager:
         departure = hotelStay.departure,
         roomKey = hotelStay.room_key
         self.guardar_reserva2_en_archivo(localizer2, idCard2, roomType, arrival, departure, roomKey)
-
+        return roomKey
 
