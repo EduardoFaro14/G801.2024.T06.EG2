@@ -2,11 +2,11 @@
 import json
 import os
 from luhn import verify
-from uc3m_travel.hotel_management_exception import hotelManagementException
-from uc3m_travel.hotel_reservation import hotelReservation
+from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
+from src.main.python.uc3m_travel.hotel_reservation import hotelReservation
 from stdnum.es import nif
 from datetime import datetime
-from uc3m_travel.hotel_stay import hotelStay
+from src.main.python.uc3m_travel.hotel_stay import hotelStay
 
 class hotelManager:
     """ Esta clase comprueba que la tarjeta sea válida y lee los datos de json"""

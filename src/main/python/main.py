@@ -13,12 +13,13 @@ def Main():
     print("CreditCard: " + res.credit_card)
     print(res.localizer)
 
-    credit_card_number = str(res.credit_card)
+    #credit_card_number = str(res.credit_card)
+    credit_card_number = "5555555555554444"
     id_card = "12345678Z"
     name_surname = "John Doeghy"
     phone_number = "123456789"
-    room_type = "single"
-    arrival = "20/03/2024"
+    room_type = "SINGLE"
+    arrival = "20/06/2024"
     num_days = 3
 
     try:

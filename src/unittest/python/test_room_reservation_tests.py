@@ -2,8 +2,8 @@ import json
 import unittest
 import os.path
 from unittest import TestCase
-from uc3m_travel.hotel_manager import hotelManager
-from uc3m_travel.hotel_management_exception import hotelManagementException
+from src.main.python.uc3m_travel.hotel_manager import hotelManager
+from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
 from pathlib import Path
 
 class testRoomResevation(TestCase):
