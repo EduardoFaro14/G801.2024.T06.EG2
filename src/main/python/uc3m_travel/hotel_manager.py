@@ -13,7 +13,7 @@ class hotelManager:
     def __init__(self):
         pass
 
-    def validatecreditcard( self, x ):
+    def validatecreditcard( self, x):
         """valida la tarjeta"""
         return verify(x)
         # PLEASE INCLUDE HERE THE CODE FOR VALIDATING THE GUID
@@ -188,10 +188,22 @@ class hotelManager:
         except FileNotFoundError:
             datosReservaf1 = {}
 
-        localizer2 = datosReservaf1["Localizer"]
-        idCard2 = datosReservaf1["IdCard"]
-        numDays = datosReservaf1["numDays"]
-        roomType = datosReservaf1["roomType"]
+        existe = 0
+        posicion, contador = 0, 0
+        for a in datosReservaf1:
+            if a["Localizer"] == localizer:
+                existe = 1
+                posicion = contador
+            contador += 1
+
+        if existe == 0:
+            raise hotelManagementException("Error, el localizer del archivo no coincide con ninguno de reservas")
+
+        reserva2 = datosReservaf1[posicion]
+        localizer2 = reserva2["Localizer"]
+        idCard2 = reserva2["IdCard"]
+        numDays = reserva2["numDays"]
+        roomType = reserva2["roomType"]
 
         if localizer != localizer2:
             raise hotelManagementException("El localizador de reservaf2 no se corresponde con el localizador en el archivo de reservaf1")
