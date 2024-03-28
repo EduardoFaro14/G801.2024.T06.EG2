@@ -35,13 +35,39 @@ class hotelManager:
             return True
         else:
             return False
+    def guardar_reserva2_en_archivo(self, localizador, idCard, roomType, arrival, departure, roomKey):
+        # Nombre del archivo donde se guardarán las reservas
+        nombreArchivo = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json"
+
+        datosReservaFinal = {
+            "Localizer": localizador,
+            "IdCard": idCard,
+            "RoomType": roomType,
+            "Arrival": arrival,
+            "Departure": departure,
+            "roomKey": roomKey
+        }
+
+        # Si el archivo no existe, crearlo e inicializarlo con los nuevos datos
+        if not os.path.exists(nombreArchivo):
+            with open(nombreArchivo, 'w') as f:
+                json.dump([datosReservaFinal], f, indent=4)
+        else:
+            with open(nombreArchivo, 'r') as f:
+                contenido = json.load(f)
+            if not any(registro['localizer'] == localizador for registro in contenido):
+                contenido.append(datosReservaFinal)
+            else:
+                raise hotelManagementException("Número reserva erroneo, más de una reserva")
+            with open(nombreArchivo, 'w') as f:
+                json.dump(contenido, f, indent=4)
 
     def guardar_reserva_en_archivo(self, localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays):
         # Nombre del archivo donde se guardarán las reservas
-        nombre_archivo = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas.json"
+        nombreArchivo = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas.json"
 
 
-        nuevo_registro = {
+        nuevoRegistro = {
             "Localizer": localizador,
             "CreditCard": creditCardNumber,
             "IdCard": idCard,
@@ -52,17 +78,17 @@ class hotelManager:
             "NumDays": numDays
         }
         # Si el archivo no existe, crearlo e inicializarlo con los nuevos datos
-        if not os.path.exists(nombre_archivo):
-            with open(nombre_archivo, 'w') as f:
-                json.dump([nuevo_registro], f, indent=4)
+        if not os.path.exists(nombreArchivo):
+            with open(nombreArchivo, 'w') as f:
+                json.dump([nuevoRegistro], f, indent=4)
         else:
-            with open(nombre_archivo, 'r') as f:
+            with open(nombreArchivo, 'r') as f:
                 contenido = json.load(f)
             if not any(registro['localizer'] == localizador for registro in contenido):
-                contenido.append(nuevo_registro)
+                contenido.append(nuevoRegistro)
             else:
                 raise hotelManagementException("Número reserva erroneo, más de una reserva")
-            with open(nombre_archivo, 'w') as f:
+            with open(nombreArchivo, 'w') as f:
                 json.dump(contenido, f, indent=4)
 
     def room_reservation(self, creditCardNumber, idCard, nameSurname, phoneNumber, roomType, arrival, numDays):
@@ -132,8 +158,8 @@ class hotelManager:
         if numeroDias > 10:
             raise hotelManagementException("Número de días erroneo, más de 10")
 
-        reserva_hotel = hotelReservation(idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
-        localizador = reserva_hotel.localizer
+        reservaHotel = hotelReservation(idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
+        localizador = reservaHotel.localizer
         self.guardar_reserva_en_archivo(localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
         return localizador
 
@@ -173,15 +199,10 @@ class hotelManager:
         if idCard != idCard2:
             raise hotelManagementException("El DNI de reservaf2 no corresponde con el DNI de reservaf1")
 
-        hotelStay = hotelStay(idCard2, localizer2, numDays, roomType)
-        datosReservaFinal = {
-            "Localizer": localizer2,
-            "IdCard": idCard2,
-            "RoomType": roomType,
-            "Arrival": hotelStay.arrival,
-            "Departure": hotelStay.departure,
-            "roomKey": hotelStay.room_key
-        }
-
+        hotel = hotelStay(idCard2, localizer2, numDays, roomType)
+        arrival = hotel.arrival,
+        departure = hotelStay.departure,
+        roomKey = hotelStay.room_key
+        self.guardar_reserva2_en_archivo(localizer2, idCard2, roomType, arrival, departure, roomKey)
 
 

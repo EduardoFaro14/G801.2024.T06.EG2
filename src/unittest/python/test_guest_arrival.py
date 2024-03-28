@@ -10,36 +10,36 @@ from datetime import datetime
 
 class testGuestArrival(TestCase):
 
-    __path_tests =
-    __path_data =
+    __path_tests = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
+    __path_data = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
 
     @classmethod
     def setUpClass(cls):
         try:
-            with open(cls.__path_tests + r"\f2_tests.json", encoding="UTF-8", mode="r") as f:
-                testf2_data = json.load(f)
+            with open(cls.__path_tests + r"\test2.json", encoding="UTF-8", mode="r") as f:
+                testf2Data = json.load(f)
         except FileNotFoundError as e:
             raise hotelManagementException("Archivo de prueba incorrecto o ruta de archivo incorrecta") from e
         except json.JSONDecodeError:
-            testf2_data = {}
+            testf2Data = {}
 
-        cls.__test_data = testf2_data
-        json_files_path = cls.__path_tests
+        cls.__testf2_data = testf2Data
+        jsonFilesPath = cls.__path_tests
         # Path del archivo de reservas para borrarlo si existe
-        file_store = json_files_path + r"\reservas.json"
-        if os.path.isfile(file_store):
-            os.remove(file_store)
+        fileStore = jsonFilesPath + r"\reservas2.json"
+        if os.path.isfile(fileStore):
+            os.remove(fileStore)
 
 
     def test_guest_arrival_tests_valid(self): #TEST VALIDO
         for index, input_data in enumerate(self.__testf2_data):
-            if index + 1 in [1, 15]:
+            if index + 1 in [1, 62, 63]:
                 test_id = "TC" + string(index + 1)
                 with self.subTest(test_id):
                     print("Ejecutando: " + test_id + ": " + input_data)
                     self.generate_tmp_test_data_file(input_data)
-                    hm = HotelManager()
-                    room_key = hm.guest_arrival(self.__path_tests + self.__tmp_test_data_file)
+                    hm = hotelManager()
+                    roomKey = hm.guest_arrival(self.__path_tests + self.__tmp_test_data_file)
                     match test_id:
                         case "TC1":
-                            self.assertEqual(room_key, 3ff517743faae67b33ddefa77163")
+                            self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")
