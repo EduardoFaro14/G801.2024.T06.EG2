@@ -54,7 +54,7 @@ class testGuestArrival(TestCase):
                             21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
                             41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61]:
                 testId = "TC" + string(index + 1)
-                with self.subTest(testId):
+                with (self.subTest(testId)):
                     print("Ejecutando: " + testId + ": " + inputData)
                     self.generate_tmp_test_data_file(inputData)
                     hm = hotelManager()
@@ -63,10 +63,20 @@ class testGuestArrival(TestCase):
                     match testId:
                         case "TC2":
                             self.assertEqual(result.exception.message, "El archivo de entrada está vacío")
-                        case "TC3", "TC5", "TC6", "TC7", "TC8", "TC9", "TC10", "TC11", "TC12", "TC13", "TC14", "TC15":
+                        case "TC3", "TC5", "TC6", "TC7", "TC8", "TC9", "TC10", "TC11", "TC12", "TC13", "TC14", "TC15", "TC17", "TC18", "TC20", "TC21", "TC23", "TC24", "TC26", "TC28", "TC29", "TC30":
                             self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
                         case "TC4":
                             self.assertEqual(result.exception.message, "El archivo de reservasf2 JSON está vacío (no hay datos entre las llaves)")
+                        case "TC16", "TC22":
+                            self.assertEqual(result.exception.message, "Error, el JSON contiene una clave vacía")
+                        case "TC19":
+                            self.assertEqual(result.exception.message, "Error, el valor asociado a la clave Localizer está vacío")
+                        case "TC25":
+                            self.assertEqual(result.exception.message,
+                                             "Error, el valor asociado a la clave IdCard está vacío")
+                        case "TC27":
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 JSON contiene más de un diccionario")
+
 
     def generate_tmp_test_data_file(self, inputData):
         nombreArchivo = self.__tmp_test_data_file
