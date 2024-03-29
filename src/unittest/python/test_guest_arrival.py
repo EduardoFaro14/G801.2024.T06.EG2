@@ -5,9 +5,9 @@ from unittest import TestCase
 
 from tomlkit import string
 
-from uc3m_travel.hotel_manager import hotelManager
-from uc3m_travel.hotel_management_exception import hotelManagementException
-from uc3m_travel.hotel_stay import hotelStay
+from src.main.python.uc3m_travel.hotel_manager import hotelManager
+from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
+from src.main.python.uc3m_travel.hotel_stay import hotelStay
 from pathlib import Path
 from datetime import datetime
 
@@ -15,6 +15,7 @@ class testGuestArrival(TestCase):
 
     __path_tests = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
     __path_data = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
+    __tmp_test_data_file = str(r"test_reservas2.json")
 
     @classmethod
     def setUpClass(cls):
@@ -37,7 +38,7 @@ class testGuestArrival(TestCase):
     def test_guest_arrival_tests_tc1(self): #TEST VALIDO
         for index, inputData in enumerate(self.__testf2_data):
             if index + 1 in [1, 62, 63]:
-                testId = "TC" + string(index + 1)
+                testId = "TC" + str(index + 1)
                 with self.subTest(testId):
                     print("Ejecutando: " + testId + ": " + inputData)
                     self.generate_tmp_test_data_file(inputData)
@@ -62,3 +63,13 @@ class testGuestArrival(TestCase):
                     match testId:
                         case "TC2":
                             self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")
+
+    def generate_tmp_test_data_file(self, inputData):
+        nombreArchivo = self.__tmp_test_data_file
+
+        if os.path.isfile(nombreArchivo):
+            # Si existe, vacía el archivo
+            open(nombreArchivo, 'w').close()
+
+        with open(nombreArchivo, 'w', encoding='utf-8') as f:
+            json.dump(inputData, f, ensure_ascii=False, indent=4)
