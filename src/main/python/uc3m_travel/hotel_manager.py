@@ -165,15 +165,23 @@ class hotelManager:
 
     def guest_arrival(self, input_file):
         try:
+            # Verificar si el archivo está vacío
+            if os.stat(input_file).st_size == 0:
+                raise hotelManagementException("El archivo de entrada está vacío")
+
             # Lee el archivo dado  y verificar que existe y está en formato JSON
-            with open(input_file.json, 'r') as f:
+            with open(input_file, 'r') as f:
                 datosReservaf2 = json.load(f)
         except FileNotFoundError:
             raise hotelManagementException("No se encuentra el archivo reservasf2.json")
         except json.JSONDecodeError:
             raise hotelManagementException("El archivo de reservasf2 no está en formato JSON")
 
-            # Verificar si el JSON tiene el Localizer y el IdCard
+        # Verificar si hay datos entre las llaves
+        if not datosReservaf2:
+            raise hotelManagementException("El archivo de reservasf2 JSON está vacío (no hay datos entre las llaves)")
+
+        # Verificar si el JSON tiene el Localizer y el IdCard
         if "Localizer" not in datosReservaf2 or "IdCard" not in datosReservaf2: #si esto falla yo pondría datosReservaf2[0]
             raise hotelManagementException("Error, reservasf2.json no tiene Localizer o IdCard")
 

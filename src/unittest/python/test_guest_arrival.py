@@ -62,7 +62,11 @@ class testGuestArrival(TestCase):
                         roomKey = hm.guest_arrival(self.__path_tests + self.__tmp_test_data_file)
                     match testId:
                         case "TC2":
-                            self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")
+                            self.assertEqual(result.exception.message, "El archivo de entrada está vacío")
+                        case "TC3", "TC5", "TC6", "TC7", "TC8", "TC9", "TC10", "TC11", "TC12", "TC13", "TC14", "TC15":
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC4":
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 JSON está vacío (no hay datos entre las llaves)")
 
     def generate_tmp_test_data_file(self, inputData):
         nombreArchivo = self.__tmp_test_data_file
