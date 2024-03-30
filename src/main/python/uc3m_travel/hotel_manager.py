@@ -196,7 +196,20 @@ class hotelManager:
 
         # Verificar si el JSON tiene el Localizer y el IdCard
         if "Localizer" not in datosReservaf2 or "IdCard" not in datosReservaf2: #si esto falla yo pondría datosReservaf2[0]
-            raise hotelManagementException("Error, reservasf2.json no tiene Localizer o IdCard")
+            raise hotelManagementException("El archivo reservasf2 tiene un fallo de escritura en alguna de las claves")
+
+        #Verificar si el valor de las claves está correctamente escrito
+        if len(datosReservaf2["Localizer"]) != 32 or len(datosReservaf2["IdCard"]) != 9:
+            raise hotelManagementException("Las claves no contienen un formato válido")
+
+        #Verificar que el dominio de las claves es correcto
+        if not datosReservaf2["Localizer"].isalnum() or not datosReservaf2["IdCard"].isalnum():
+            raise hotelManagementException("Los datos de las claves tienen caracteres que no son letras o números")
+
+        #Verificar que el IdCard tiene 8 números y 1 letra
+        if not datosReservaf2["IdCard"][:8].isdigit() and not data["IdCard"][8].isalpha():
+            raise hotelManagementException("El formato de IdCard no cumple el formato 8 dígitos y 1 letra")
+
 
         localizer = datosReservaf2["Localizer"]
         idCard = datosReservaf2["IdCard"]
