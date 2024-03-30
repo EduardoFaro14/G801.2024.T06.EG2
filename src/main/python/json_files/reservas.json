@@ -1,0 +1,32 @@
+[
+    {
+        "Localizer": "43d9d717214b9f6858bd2b55be901645",
+        "CreditCard": "5555555555554444",
+        "IdCard": "12345678Z",
+        "NameSurname": "JOSE LOPEZ",
+        "phoneNumber": "911234567",
+        "RoomType": "SINGLE",
+        "Arrival": "14/06/2024",
+        "NumDays": "2"
+    },
+    {
+        "Localizer": "ec4a527e598a64d8dcf38b9d68b4da9e",
+        "CreditCard": "1134567890134567",
+        "IdCard": "12345679S",
+        "NameSurname": "CARMEN PEREZ",
+        "phoneNumber": "911234568",
+        "RoomType": "DOUBLE",
+        "Arrival": "14/06/2024",
+        "NumDays": "2"
+    },
+    {
+        "Localizer": "19102761a0e960cb8cb97d39a71533e5",
+        "CreditCard": "4005032839096989",
+        "IdCard": "11111111H",
+        "NameSurname": "JOSE LOPEZ IGLESIAS",
+        "phoneNumber": "911234569",
+        "RoomType": "SUITE",
+        "Arrival": "14/06/2024",
+        "NumDays": "2"
+    }
+]

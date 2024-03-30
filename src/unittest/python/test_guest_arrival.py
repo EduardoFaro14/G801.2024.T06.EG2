@@ -20,7 +20,7 @@ class testGuestArrival(TestCase):
     @classmethod
     def setUpClass(cls):
         try:
-            with open(cls.__path_tests + r"\test2.json", encoding="UTF-8", mode="r") as f:
+            with open(cls.__path_tests + r"\test2", encoding="UTF-8", mode="r") as f:
                 testf2Data = json.load(f)
         except FileNotFoundError as e:
             raise hotelManagementException("Archivo de prueba incorrecto o ruta de archivo incorrecta") from e
