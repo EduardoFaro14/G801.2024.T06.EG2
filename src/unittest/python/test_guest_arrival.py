@@ -10,6 +10,7 @@ from src.main.python.uc3m_travel.hotel_management_exception import hotelManageme
 from src.main.python.uc3m_travel.hotel_stay import hotelStay
 from pathlib import Path
 from datetime import datetime
+from freezegun import freeze_time
 
 class testGuestArrival(TestCase):
 
@@ -26,20 +27,21 @@ class testGuestArrival(TestCase):
         if os.path.isfile(fileStore):
             os.remove(fileStore)
 
-
+    @freeze_time("2024-06-14 12:00:00")
     def test_guest_arrival_tests_tc1(self): #TEST VALIDO
         index = 0
         if index + 1 in [1]:
             testId = "TC" + str(index + 1)
             with self.subTest(testId):
-                inputData = self.__path_tests + r"\test2\test" + str(index) + r".json"
-                print("Ejecutando: " + testId + ": " + inputData)
+                inputData = self.__path_tests + r"\test2\test" + str(index+1) + r".json"
+                print("Ejecutando: " + testId)
                 # self.generate_tmp_test_data_file(inputData)
                 hm = hotelManager()
                 roomKey = hm.guest_arrival(inputData)
                 match testId:
                     case "TC1":
-                        self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")
+                        self.assertEqual(roomKey, "f280243dd947601de72d625467011f701929f1a0ad89cfb90cb769d89651274b")
+
 
     def test_guest_arrival_tests_tc2(self): #TEST INVALIDO
 
@@ -51,39 +53,261 @@ class testGuestArrival(TestCase):
                              62, 63, 64, 65, 66, 67, 68, 69, 70, 71]:
                 testId = "TC" + str(index + 1)
                 inputData = self.__path_tests + r"\test2\test" + str(index+1) + r".json"
-                with ((self.subTest(testId))):
+                with (((((((((self.subTest(testId)))))))))):
                     print("Ejecutando: " + testId)
                     # self.generate_tmp_test_data_file(inputData)
                     hm = hotelManager()
                     with self.assertRaises(hotelManagementException) as result:
                         roomKey = hm.guest_arrival(inputData)
-                    match testId:
+                    print(testId)
+                    match str(testId):
                         case "TC2":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message, "El archivo de entrada está vacío")
-                        case "TC3", "TC5", "TC6", "TC7", "TC8", "TC9", "TC10", "TC11", "TC12", "TC13", "TC14", "TC15", "TC17", "TC18", \
-                            "TC20", "TC21", "TC23", "TC24", "TC26", "TC28", "TC29", "TC30", "TC31", "TC32", "TC33", "TC34", "TC35", \
-                            "TC36", "TC37", "TC38", "TC39", "TC40", "TC42", "TC43", "TC45", "TC46", "TC48", "TC49", "TC51", "TC52", \
-                            "TC53", "TC54", "TC55", "TC56", "TC57", "TC59", "TC60", "TC63", "TC64", "TC66", "TC67", "TC71":
+                        case "TC3":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC5":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC6":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC7":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC8":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC9":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC10":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC11":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC12":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC13":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC14":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC15":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC17":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC18":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC20":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC21":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC23":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC24":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC26":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "T27":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC28":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC29":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC30":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC31":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC32":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC33":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC34":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC35":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC36":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC37":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC38":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC39":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC40":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+                        case "TC42":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
+
+                        case "TC43":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC45":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC46":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC48":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC49":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC51":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC52":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC53":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC54":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC55":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC56":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC57":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC59":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC60":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC63":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC64":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC66":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC67":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+                        case "TC71":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo de reservasf2 no está en formato JSON")
+
                         case "TC4":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message, "El archivo de reservasf2 JSON está vacío (no hay datos entre las llaves)")
-                        case "TC16", "TC22":
+                        case "TC16":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "Error, el JSON contiene una clave vacía")
+                        case "TC22":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message, "Error, el JSON contiene una clave vacía")
                         case "TC19":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message, "Error, el valor asociado a la clave Localizer está vacío")
                         case "TC25":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message,
                                              "Error, el valor asociado a la clave IdCard está vacío")
-                        case "TC27":
-                            self.assertEqual(result.exception.message, "El archivo de reservasf2 JSON contiene más de un diccionario")
-                        case "TC41", "TC47", "TC58", "TC65":
+                        case "TC41":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message, "El archivo reservasf2 tiene un fallo de escritura en alguna de las claves")
-                        case "TC44", "TC50", "TC61", "TC68":
-                            self.assertEqual(result.exception.message, "Las claves no contienen un formato válido")
-                        case "TC62", "TC70":
-                            self.assertEqual(result.exception.message, "Los datos de las claves tienen caracteres que no son letras o números")
+
+                        case "TC47":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo reservasf2 tiene un fallo de escritura en alguna de las claves")
+                        case "TC58":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo reservasf2 tiene un fallo de escritura en alguna de las claves")
+                        case "TC65":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El archivo reservasf2 tiene un fallo de escritura en alguna de las claves")
+
+                        case "TC44":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "Localizer contiene más de 32 caracteres")
+                        case "TC50":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "IdCard contiene más de 9 caracteres")
+                        case "TC61":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "Localizer contiene menos de 32 caracteres")
+                        case "TC68":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "IdCard contiene menos de 9 caracteres")
+                        case "TC62":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message, "Localizer no contiene solo números o solo letras")
                         case "TC69":
+                            print(result.exception.message)
                             self.assertEqual(result.exception.message, "El formato de IdCard no cumple el formato 8 dígitos y 1 letra")
+                        case "TC70":
+                            print(result.exception.message)
+                            self.assertEqual(result.exception.message,
+                                             "El formato de IdCard no cumple el formato 8 dígitos y 1 letra")
 
     #no hace falta porque hemos hecho manualmente lo de pasar los tests a ficheros json individuales
     '''def generate_tmp_test_data_file(self, inputData):
