@@ -194,7 +194,7 @@ class hotelManager:
             with open(input_file, 'r') as f:
                 datosReservaf2 = json.load(f)
         except FileNotFoundError:
-            raise hotelManagementException("No se encuentra el archivo reservasf2.json")
+            raise hotelManagementException("No se encuentra el archivo json")
         except json.JSONDecodeError:
             raise hotelManagementException("El archivo de reservasf2 no está en formato JSON")
 
@@ -206,30 +206,31 @@ class hotelManager:
         if "" in datosReservaf2:
             raise hotelManagementException("Error, el JSON contiene una clave vacía")
 
-        # Verificar si hay más de un diccionario en el JSON
-        if isinstance(datosReservaf2, list) and all(isinstance(item, dict) for item in datosReservaf2) and len(
-                      datosReservaf2) > 1:
-            raise hotelManagementException("El archivo de reservasf2 JSON contiene más de un diccionario")
-
         # Verificar si hay una clave vacía en el JSON
         for key, value in datosReservaf2.items():
-            if not value:
-                raise hotelManagementException("El archivo de entrada está vacío")
+            if not value and key==("Localizer"):
+                raise hotelManagementException("Error, el valor asociado a la clave Localizer está vacío")
+            if not value and key==("IdCard"):
+                raise hotelManagementException("Error, el valor asociado a la clave IdCard está vacío")
 
         # Verificar si el JSON tiene el Localizer y el IdCard
         if "Localizer" not in datosReservaf2 or "IdCard" not in datosReservaf2: #si esto falla yo pondría datosReservaf2[0]
             raise hotelManagementException("El archivo reservasf2 tiene un fallo de escritura en alguna de las claves")
 
         #Verificar si el valor de las claves está correctamente escrito
-        if len(datosReservaf2["Localizer"]) != 32 or len(datosReservaf2["IdCard"]) != 9:
-            raise hotelManagementException("Las claves no contienen un formato válido")
-
-        #Verificar que el dominio de las claves es correcto
-        if not datosReservaf2["Localizer"].isalnum() or not datosReservaf2["IdCard"].isalnum():
-            raise hotelManagementException("Los datos de las claves tienen caracteres que no son letras o números")
+        if len(datosReservaf2["Localizer"]) > 32:
+            raise hotelManagementException("Localizer contiene más de 32 caracteres")
+        if len(datosReservaf2["Localizer"]) < 32:
+            raise hotelManagementException("Localizer contiene menos de 32 caracteres")
+        if not datosReservaf2["Localizer"].isalnum():
+            raise hotelManagementException("Localizer no contiene solo números o solo letras")
 
         #Verificar que el IdCard tiene 8 números y 1 letra
-        if not datosReservaf2["IdCard"][:8].isdigit() and not data["IdCard"][8].isalpha():
+        if len(datosReservaf2["IdCard"]) > 9:
+            raise hotelManagementException("IdCard contiene más de 9 caracteres")
+        if len(datosReservaf2["IdCard"]) < 9:
+            raise hotelManagementException("IdCard contiene menos de 9 caracteres")
+        if not nif.is_valid(datosReservaf2["IdCard"]):
             raise hotelManagementException("El formato de IdCard no cumple el formato 8 dígitos y 1 letra")
 
 
@@ -258,8 +259,8 @@ class hotelManager:
         reserva2 = datosReservaf1[posicion]
         localizer2 = reserva2["Localizer"]
         idCard2 = reserva2["IdCard"]
-        numDays = reserva2["numDays"]
-        roomType = reserva2["roomType"]
+        numDays = reserva2["NumDays"]
+        roomType = reserva2["RoomType"]
 
         if localizer != localizer2:
             raise hotelManagementException("El localizador de reservaf2 no se corresponde con el localizador en el archivo de reservaf1")
