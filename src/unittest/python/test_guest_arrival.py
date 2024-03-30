@@ -15,7 +15,7 @@ class testGuestArrival(TestCase):
 
     __path_tests = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
     __path_data = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
-    __tmp_test_data_file = str(r"test_reservas2.json")
+    __tmp_test_data_file = str(r"reservas2.json")
 
     @classmethod
     def setUpClass(cls):
@@ -64,9 +64,9 @@ class testGuestArrival(TestCase):
                     match testId:
                         case "TC2":
                             self.assertEqual(result.exception.message, "El archivo de entrada está vacío")
-                        case "TC3", "TC5", "TC6", "TC7", "TC8", "TC9", "TC10", "TC11", "TC12", "TC13", "TC14", "TC15", "TC17", "TC18",
-                            "TC20", "TC21", "TC23", "TC24", "TC26", "TC28", "TC29", "TC30", "TC31", "TC32", "TC33", "TC34", "TC35",
-                            "TC36", "TC37", "TC38", "TC39", "TC40", "TC42", "TC43", "TC45", "TC46", "TC48", "TC49", "TC51", "TC52",
+                        case "TC3", "TC5", "TC6", "TC7", "TC8", "TC9", "TC10", "TC11", "TC12", "TC13", "TC14", "TC15", "TC17", "TC18", \
+                            "TC20", "TC21", "TC23", "TC24", "TC26", "TC28", "TC29", "TC30", "TC31", "TC32", "TC33", "TC34", "TC35", \
+                            "TC36", "TC37", "TC38", "TC39", "TC40", "TC42", "TC43", "TC45", "TC46", "TC48", "TC49", "TC51", "TC52", \
                             "TC53", "TC54", "TC55", "TC56", "TC57", "TC59", "TC60", "TC63", "TC64", "TC66", "TC67", "TC71":
                             self.assertEqual(result.exception.message, "El archivo de reservasf2 no está en formato JSON")
                         case "TC4":
@@ -90,7 +90,7 @@ class testGuestArrival(TestCase):
                             self.assertEqual(result.exception.message, "El formato de IdCard no cumple el formato 8 dígitos y 1 letra")
 
     def generate_tmp_test_data_file(self, inputData):
-        nombreArchivo = self.__tmp_test_data_file
+        nombreArchivo = self.__path_tests + self.__tmp_test_data_file
 
         if os.path.isfile(nombreArchivo):
             # Si existe, vacía el archivo

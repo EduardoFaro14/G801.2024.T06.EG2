@@ -84,10 +84,31 @@ class hotelManager:
         else:
             with open(nombreArchivo, 'r') as f:
                 contenido = json.load(f)
-            if not any(registro['localizer'] == localizador for registro in contenido):
+            if not any(registro["Localizer"] == localizador for registro in contenido):
                 contenido.append(nuevoRegistro)
             else:
                 raise hotelManagementException("Número reserva erroneo, más de una reserva")
+            with open(nombreArchivo, 'w') as f:
+                json.dump(contenido, f, indent=4)
+
+    def insertarDatos(self, fechaActual, roomKey):
+        nombreArchivo = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas3.json"
+        nuevoRegistro = {
+            "Fecha de Salida": fechaActual,
+            "roomKey": roomKey
+        }
+        # Si el archivo no existe, crearlo e inicializarlo con los nuevos datos
+
+        if not os.path.exists(nombreArchivo):
+            with open(nombreArchivo, 'w') as f:
+                json.dump([nuevoRegistro], f, indent=4)
+        else:
+            with open(nombreArchivo, 'r') as f:
+                contenido = json.load(f)
+            if not any(registro['roomKey'] == roomKey for registro in contenido):
+                contenido.append(nuevoRegistro)
+            else:
+                raise hotelManagementException("Número de roomKey repetido")
             with open(nombreArchivo, 'w') as f:
                 json.dump(contenido, f, indent=4)
 
@@ -252,3 +273,26 @@ class hotelManager:
         self.guardar_reserva2_en_archivo(localizer2, idCard2, roomType, arrival, departure, roomKey)
         return roomKey
 
+    def guest_checkout(self, roomKey):
+        # comprobar q roomKey sea hexadecimal de 64 caracteres
+        if len(roomKey) < 64:
+            raise hotelManagementException("")
+        if len(roomKey) > 64:
+            raise hotelManagementException("")
+        nombreArchivo = (r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json")
+        datosReservaf1 = readdatafrom_json(nombreArchivo)
+        existe = 0
+        posicion, contador = 0, 0
+        for a in datosReservaf1:
+            if a["roomKey"] == roomKey:
+                existe = 1
+                posicion = contador
+            contador += 1
+
+        if existe == 0:
+            raise hotelManagementException("")
+        if datosReservaf1[posicion - 1] == """fecha actual""":
+            insertarDatos("""fechaActualConHora""", roomKey)
+            return True
+        else:
+            raise hotelManagementException("")

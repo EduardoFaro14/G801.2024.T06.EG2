@@ -31,10 +31,7 @@ class testRoomResevation(TestCase):
                 with self.subTest(input_data["idTest"]):
                     print("Executing: " + input_data["idTest"])
                     hm = hotelManager()
-                localizer = hm.room_reservation(input_data["CreditCard"],input_data["IdCard"],
-                                                input_data["NameSurname"], input_data["phoneNumber"],
-                                                input_data["RoomType"], input_data["Arrival"],
-                                                input_data["NumDays"])
+                localizer = hm.room_reservation(input_data["CreditCard"],input_data["IdCard"], input_data["NameSurname"], input_data["phoneNumber"], input_data["RoomType"], input_data["Arrival"], input_data["NumDays"])
                 match input_data["idTest"]:
                     case "TC1":
                         self.assertEqual(localizer, "43d9d717214b9f6858bd2b55be901645")
