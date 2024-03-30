@@ -207,13 +207,14 @@ class hotelManager:
             raise hotelManagementException("Error, el JSON contiene una clave vacía")
 
         # Verificar si hay más de un diccionario en el JSON
-        if len(datosReservaf2) > 1:
+        if isinstance(datosReservaf2, list) and all(isinstance(item, dict) for item in datosReservaf2) and len(
+                      datosReservaf2) > 1:
             raise hotelManagementException("El archivo de reservasf2 JSON contiene más de un diccionario")
 
         # Verificar si hay una clave vacía en el JSON
         for key, value in datosReservaf2.items():
             if not value:
-                raise hotelManagementException("Error, el valor asociado a la clave '{}' está vacío".format(key))
+                raise hotelManagementException("El archivo de entrada está vacío")
 
         # Verificar si el JSON tiene el Localizer y el IdCard
         if "Localizer" not in datosReservaf2 or "IdCard" not in datosReservaf2: #si esto falla yo pondría datosReservaf2[0]

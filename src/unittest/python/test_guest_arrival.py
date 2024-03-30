@@ -19,15 +19,7 @@ class testGuestArrival(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        try:
-            with open(cls.__path_tests + r"\test2", encoding="UTF-8", mode="r") as f:
-                testf2Data = json.load(f)
-        except FileNotFoundError as e:
-            raise hotelManagementException("Archivo de prueba incorrecto o ruta de archivo incorrecta") from e
-        except json.JSONDecodeError:
-            testf2Data = {}
 
-        cls.__testf2_data = testf2Data
         jsonFilesPath = cls.__path_tests
         # Path del archivo de reservas para borrarlo si existe
         fileStore = jsonFilesPath + r"\reservas2.json"
@@ -36,31 +28,35 @@ class testGuestArrival(TestCase):
 
 
     def test_guest_arrival_tests_tc1(self): #TEST VALIDO
-        for index, inputData in enumerate(self.__testf2_data):
-            if index + 1 in [1]:
-                testId = "TC" + str(index + 1)
-                with self.subTest(testId):
-                    print("Ejecutando: " + testId + ": " + inputData)
-                    self.generate_tmp_test_data_file(inputData)
-                    hm = hotelManager()
-                    roomKey = hm.guest_arrival(self.__path_tests + self.__tmp_test_data_file)
-                    match testId:
-                        case "TC1":
-                            self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")
+        index = 0
+        if index + 1 in [1]:
+            testId = "TC" + str(index + 1)
+            with self.subTest(testId):
+                inputData = self.__path_tests + r"\test2\test" + str(index) + r".json"
+                print("Ejecutando: " + testId + ": " + inputData)
+                # self.generate_tmp_test_data_file(inputData)
+                hm = hotelManager()
+                roomKey = hm.guest_arrival(inputData)
+                match testId:
+                    case "TC1":
+                        self.assertEqual(roomKey, "3ff517743faae67b33ddefa77163")
 
     def test_guest_arrival_tests_tc2(self): #TEST INVALIDO
-        for index, inputData in enumerate(self.__testf2_data):
+
+        for index in range(72):
+
             if index + 1 in [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
                             21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
                             41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,
                              62, 63, 64, 65, 66, 67, 68, 69, 70, 71]:
-                testId = "TC" + string(index + 1)
+                testId = "TC" + str(index + 1)
+                inputData = self.__path_tests + r"\test2\test" + str(index+1) + r".json"
                 with ((self.subTest(testId))):
-                    print("Ejecutando: " + testId + ": " + inputData)
-                    self.generate_tmp_test_data_file(inputData)
+                    print("Ejecutando: " + testId)
+                    # self.generate_tmp_test_data_file(inputData)
                     hm = hotelManager()
                     with self.assertRaises(hotelManagementException) as result:
-                        roomKey = hm.guest_arrival(self.__path_tests + self.__tmp_test_data_file)
+                        roomKey = hm.guest_arrival(inputData)
                     match testId:
                         case "TC2":
                             self.assertEqual(result.exception.message, "El archivo de entrada está vacío")
@@ -89,7 +85,8 @@ class testGuestArrival(TestCase):
                         case "TC69":
                             self.assertEqual(result.exception.message, "El formato de IdCard no cumple el formato 8 dígitos y 1 letra")
 
-    def generate_tmp_test_data_file(self, inputData):
+    #no hace falta porque hemos hecho manualmente lo de pasar los tests a ficheros json individuales
+    '''def generate_tmp_test_data_file(self, inputData):
         nombreArchivo = self.__path_tests + self.__tmp_test_data_file
 
         if os.path.isfile(nombreArchivo):
@@ -97,4 +94,4 @@ class testGuestArrival(TestCase):
             open(nombreArchivo, 'w').close()
 
         with open(nombreArchivo, 'w', encoding='utf-8') as f:
-            json.dump(inputData, f, ensure_ascii=False, indent=4)
+            json.dump(inputData, f, ensure_ascii=False, indent=4)'''
