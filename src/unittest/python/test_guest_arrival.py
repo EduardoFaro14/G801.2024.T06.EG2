@@ -1,3 +1,4 @@
+import hashlib
 import json
 import unittest
 import os.path
@@ -27,9 +28,18 @@ class testGuestArrival(TestCase):
         if os.path.isfile(fileStore):
             os.remove(fileStore)
 
+    def get_hash(self):
+        try:
+            with open(self.__path_tests + r"\reservas.json", encoding='UTF-8', mode="r") as f:
+                file_hash = hashlib.md5(f.__str__().encode()).hexdigest()
+        except FileNotFoundError:
+            file_hash = ""
+        return file_hash
+
     @freeze_time("2024-06-14 12:00:00")
     def test_guest_arrival_tests_tc1(self):  # TEST VALIDO
         index = 0
+        hash1 = self.get_hash()
         if index + 1 in [1]:
             testId = "TC" + str(index + 1)
             with self.subTest(testId):
@@ -41,10 +51,13 @@ class testGuestArrival(TestCase):
                 match testId:
                     case "TC1":
                         self.assertEqual(roomKey, "f280243dd947601de72d625467011f701929f1a0ad89cfb90cb769d89651274b")
+        hash2 = self.get_hash()
+        if hash2 != hash1:
+            raise hotelManagementException("El archivo de reservas ha sido modificado")
 
     @freeze_time("2024-06-24 12:00:00")
     def test_guest_arrival_tests_tc2(self):  # TEST INVALIDO
-
+        hash1 = self.get_hash()
         for index in range(72):
 
             if index + 1 in [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -342,6 +355,9 @@ class testGuestArrival(TestCase):
                             print(result.exception.message)
                             self.assertEqual(result.exception.message,
                                              "La fecha de llegada de reservaf2 no coincide con la fecha de llegada en reservaf1")
+        hash2 = self.get_hash()
+        if hash2 != hash1:
+            raise hotelManagementException("El archivo de reservas ha sido modificado")
 
     # no hace falta porque hemos hecho manualmente lo de pasar los tests a ficheros json individuales
     '''def generate_tmp_test_data_file(self, inputData):
