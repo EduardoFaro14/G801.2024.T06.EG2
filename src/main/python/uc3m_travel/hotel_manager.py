@@ -1,6 +1,8 @@
 """Modulo hotelManager"""
 import json
 import os
+from typing import re
+
 from luhn import verify
 from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
 from src.main.python.uc3m_travel.hotel_reservation import hotelReservation
@@ -286,23 +288,30 @@ class hotelManager:
     def guest_checkout(self, roomKey):
         # comprobar q roomKey sea hexadecimal de 64 caracteres
         if len(roomKey) < 64:
-            raise hotelManagementException("")
+            raise hotelManagementException("roomKey tiene menos de 64 caracteres")
         if len(roomKey) > 64:
-            raise hotelManagementException("")
+            raise hotelManagementException("roomKey tiene más de 64 caracteres")
+        if not re.match(r"^[a-fA-F0-9]{64}$",roomKey):
+            raise hotelManagementException("roomKey no es hexadecimal de 64 caracteres")
         nombreArchivo = (r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json")
         datosReservaf1 = self.readdatafrom_json(nombreArchivo)
+        if not datosReservaf1:
+            raise hotelManagementException("El archivo de reservas2.json está vacío")
+
+        hoy = datetime.now().date().strftime("%d/%m/%Y")
         existe = 0
-        posicion, contador = 0, 0
+        #posicion, contador = 0, 0
         for a in datosReservaf1:
             if a["roomKey"] == roomKey:
                 existe = 1
-                posicion = contador
-            contador += 1
+                if a["Departure"] != hoy:
+                    raise hotelManagementException("La fecha de salida no es hoy")
+                fechaSalida = a["Departure"]
+
 
         if existe == 0:
-            raise hotelManagementException("")
-        if datosReservaf1[posicion - 1] == """fecha actual""":
-            insertarDatos("""fechaActualConHora""", roomKey)
-            return True
-        else:
-            raise hotelManagementException("")
+            raise hotelManagementException("No existe ninguna roomKey igual a la dada")
+
+        self.insertarDatos(fechaSalida, roomKey)
+        return True
+
