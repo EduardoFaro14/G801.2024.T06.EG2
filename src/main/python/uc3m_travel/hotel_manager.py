@@ -188,6 +188,7 @@ class hotelManager:
         localizador = reservaHotel.localizer
         self.guardar_reserva_en_archivo(localizador, idCard, creditCardNumber, arrival, nameSurname, phoneNumber, roomType, numDays)
         return localizador
+    
 
     def guest_arrival(self, input_file):
         try:
