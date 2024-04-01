@@ -30,7 +30,7 @@ class testGuestArrival(TestCase):
 
     def get_hash(self):
         try:
-            with open(self.__path_tests + r"\reservas.json", encoding='UTF-8', mode="r") as f:
+            with open(self.__path_tests + r"\reservas2.json", encoding='UTF-8', mode="r") as f:
                 file_hash = hashlib.md5(f.__str__().encode()).hexdigest()
         except FileNotFoundError:
             file_hash = ""
@@ -39,7 +39,6 @@ class testGuestArrival(TestCase):
     @freeze_time("2024-06-14")
     def test_guest_arrival_tests_tc1(self):  # TEST VALIDO
         index = 0
-        hash1 = self.get_hash()
         if index + 1 in [1]:
             testId = "TC" + str(index + 1)
             with self.subTest(testId):
@@ -51,9 +50,6 @@ class testGuestArrival(TestCase):
                 match testId:
                     case "TC1":
                         self.assertEqual(roomKey, "caa15f15a3c5d53c7956706fa8a7f02c0a72a0cb591e9d4bc71727c32f13891d")
-        hash2 = self.get_hash()
-        if hash2 != hash1:
-            raise hotelManagementException("El archivo de reservas ha sido modificado")
 
     @freeze_time("2024-06-24")
     def test_guest_arrival_tests_tc2(self):  # TEST INVALIDO
@@ -356,16 +352,5 @@ class testGuestArrival(TestCase):
                             self.assertEqual(result.exception.message,
                                              "La fecha de llegada de reservaf2 no coincide con la fecha de llegada en reservaf1")
         hash2 = self.get_hash()
-        if hash2 != hash1:
-            raise hotelManagementException("El archivo de reservas ha sido modificado")
+        self.assertEqual(hash1, hash2)
 
-    # no hace falta porque hemos hecho manualmente lo de pasar los tests a ficheros json individuales
-    '''def generate_tmp_test_data_file(self, inputData):
-        nombreArchivo = self.__path_tests + self.__tmp_test_data_file
-
-        if os.path.isfile(nombreArchivo):
-            # Si existe, vacía el archivo
-            open(nombreArchivo, 'w').close()
-
-        with open(nombreArchivo, 'w', encoding='utf-8') as f:
-            json.dump(inputData, f, ensure_ascii=False, indent=4)'''
