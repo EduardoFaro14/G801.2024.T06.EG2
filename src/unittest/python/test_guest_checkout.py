@@ -17,6 +17,7 @@ class testGuestCheckout(TestCase):
 
     __path_tests = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
     __path_data = str(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files")
+
     @classmethod
     def setUpClass(cls):
         try:
@@ -31,3 +32,41 @@ class testGuestCheckout(TestCase):
         file_store = JSON_FILES_PATH + r"\reservas.json"
         if os.path.isfile(file_store):
             os.remove(file_store)
+
+
+    def test_guest_checkoutok(self):  # TEST VALIDO
+        index = 0
+        hash1 = self.get_hash()
+        if index + 1 in [1]:
+            testId = "TC" + str(index + 1)
+            with self.subTest(testId):
+                inputData = self.__path_tests + r"\test2\test" + str(index + 1) + r".json"
+                print("Ejecutando: " + testId)
+                # self.generate_tmp_test_data_file(inputData)
+                hm = hotelManager()
+                roomKey = hm.guest_arrival(inputData)
+                match testId:
+                    case "TC1":
+
+        hash2 = self.get_hash()
+        if hash2 != hash1:
+            raise hotelManagementException("El archivo de reservas ha sido modificado")
+
+
+    def test_guest_checkoutko(self):  # TEST INVALIDOS
+
+        hash1 = self.get_hash()
+        for index in range(72):
+
+            if index + 1 in [2, 3, 4]:
+                testId = "TC" + str(index + 1)
+                inputData = self.__path_tests + r"\test2\test" + str(index + 1) + r".json"
+                with (self.subTest(testId)):
+                    print("Ejecutando: " + testId)
+                    # self.generate_tmp_test_data_file(inputData)
+                    hm = hotelManager()
+                    with self.assertRaises(hotelManagementException) as result:
+                        roomKey = hm.guest_arrival(inputData)
+                    print(testId)
+                    match str(testId):
+                        case "TC2":
