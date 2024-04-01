@@ -28,7 +28,7 @@ class hotelManager:
         except FileNotFoundError as e:
             raise hotelManagementException("Wrong file or file path") from e
         except json.JSONDecodeError as e:
-            raise hotelManagementException("JSON Decode Error - Wrong JSON Format") from e
+            raise hotelManagementException("El archivo de reservasf2 no está en formato JSON") from e
 
         return data
 
@@ -108,8 +108,11 @@ class hotelManager:
             with open(nombreArchivo, 'w') as f:
                 json.dump([nuevoRegistro], f, indent=4)
         else:
-            with open(nombreArchivo, 'r') as f:
-                contenido = json.load(f)
+            try:
+                with open(nombreArchivo, 'r') as f:
+                    contenido = json.load(f)
+            except json.JSONDecodeError as e:
+                raise hotelManagementException("El archivo de reservas3 no está en formato JSON") from e
             if not any(registro['roomKey'] == roomKey for registro in contenido):
                 contenido.append(nuevoRegistro)
             else:
@@ -295,12 +298,7 @@ class hotelManager:
         if not re.match("^[a-fA-F0-9]{64}$", roomKey):
             raise hotelManagementException("roomKey no es hexadecimal de 64 caracteres")
         nombreArchivo = (r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json")
-        try:
-            datosReservaf1 = self.readdatafrom_json(nombreArchivo)
-        except FileNotFoundError:
-            raise hotelManagementException("No se encuentra el archivo json")
-        except json.JSONDecodeError:
-            raise hotelManagementException("El archivo de reservasf2 no está en formato JSON")
+        datosReservaf1 = self.readdatafrom_json(nombreArchivo)
 
         if not datosReservaf1:
             raise hotelManagementException("El archivo de reservas2.json está vacío")

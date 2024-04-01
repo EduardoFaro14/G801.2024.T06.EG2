@@ -1,8 +1,1 @@
-{
-    "Localizer": "43d9d717214b9f6858bd2b55be901645",
-    "IdCard": "12345678Z",
-    "RoomType": "SINGLE",
-    "Arrival": "2024-06-14",
-    "Departure": "2024-06-16",
-    "roomKey": "caa15f15a3c5d53c7956706fa8a7f02c0a72a0cb591e9d4bc71727c32f13891d"
-}
+{"Localizer": "43d9d717214b9f6858bd2b55be901645", "IdCard": "12345678Z", "RoomType": "SINGLE", "Arrival": "2024-06-14", "Departure": "2024-06-16", "roomKey": "caa15f15a3c5d53c7956706fa8a7f02c0a72a0cb591e9d4bc71727c32f13891d"}
