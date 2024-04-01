@@ -295,7 +295,13 @@ class hotelManager:
         if not re.match("^[a-fA-F0-9]{64}$", roomKey):
             raise hotelManagementException("roomKey no es hexadecimal de 64 caracteres")
         nombreArchivo = (r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json")
-        datosReservaf1 = self.readdatafrom_json(nombreArchivo)
+        try:
+            datosReservaf1 = self.readdatafrom_json(nombreArchivo)
+        except FileNotFoundError:
+            raise hotelManagementException("No se encuentra el archivo json")
+        except json.JSONDecodeError:
+            raise hotelManagementException("El archivo de reservasf2 no está en formato JSON")
+
         if not datosReservaf1:
             raise hotelManagementException("El archivo de reservas2.json está vacío")
 

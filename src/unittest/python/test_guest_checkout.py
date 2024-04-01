@@ -1,3 +1,4 @@
+import copy
 import json
 import unittest
 import os.path
@@ -80,3 +81,24 @@ class testGuestCheckout(TestCase):
                     match input_data["idTest"]:
                         case "TC7":
                             self.assertEqual(result.exception.message,"La fecha de salida no es hoy")
+
+    def test_guest_checkout_tc4(self):  # TEST INVALIDOS
+        for input_data in self.__test_data_credit_card:
+            if input_data["idTest"] in ["TC8"]:
+                with self.subTest(input_data["idTest"]):
+                    print("Executing: " + input_data["idTest"])
+                    hm = hotelManager()
+                    with open(self.__path_tests + r'reservas2.json', encoding="UTF-8", mode="r") as f:
+                        data = json.load(f)
+                    data = copy.deepcopy(data)
+                    with open(self.__path_tests + r'reservas2.json', encoding="UTF-8", mode="w") as f:
+                        json.dump("hola", f)
+                    with self.assertRaises(hotelManagementException) as result:
+                        hm.guest_checkout(input_data["roomKey"])
+
+                    with open(self.__path_tests + r'reservas2.json', encoding="UTF-8", mode="w") as f:
+                        json.dump(data, f)
+
+                    match input_data["idTest"]:
+                        case "TC8":
+                            self.assertEqual(result.exception.message,"El archivo de reservasf2 no está en formato JSON")
