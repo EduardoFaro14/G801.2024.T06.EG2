@@ -34,7 +34,7 @@ class testGuestCheckout(TestCase):
             os.remove(file_store)
 
     @freeze_time("2024-06-16")
-    def test_guest_checkoutok_tc1(self):  # TEST VALIDO
+    def test_guest_checkout_tc1(self):  # TEST VALIDO
         for input_data in self.__test_data_credit_card:
             if input_data["idTest"] == "TC1":
                 with self.subTest(input_data["idTest"]):
@@ -45,10 +45,12 @@ class testGuestCheckout(TestCase):
                     case "TC1":
                         self.assertEqual(verdadero, True)
 
+
+
     @freeze_time("2024-06-16")
     def test_guest_checkout_tc2(self):  # TEST INVALIDOS
         for input_data in self.__test_data_credit_card:
-            if input_data["idTest"] in ["TC1", "TC2", "TC3", "TC4", "TC5"]:
+            if input_data["idTest"] in ["TC2", "TC3", "TC4", "TC5", "TC6"]:
                 with self.subTest(input_data["idTest"]):
                     print("Executing: " + input_data["idTest"])
                     hm = hotelManager()
@@ -63,17 +65,18 @@ class testGuestCheckout(TestCase):
                             self.assertEqual(result.exception.message, "roomKey no es hexadecimal de 64 caracteres")
                         case "TC5":
                             self.assertEqual(result.exception.message, "No existe ninguna roomKey igual a la dada")
-
+                        case "TC6":
+                            self.assertEqual(result.exception.message, "Número de roomKey repetido")
 
     @freeze_time("2024-07-17")
     def test_guest_checkout_tc3(self):  # TEST INVALIDOS
         for input_data in self.__test_data_credit_card:
-            if input_data["idTest"] in ["TC6"]:
+            if input_data["idTest"] in ["TC7"]:
                 with self.subTest(input_data["idTest"]):
                     print("Executing: " + input_data["idTest"])
                     hm = hotelManager()
                     with self.assertRaises(hotelManagementException) as result:
                         hm.guest_checkout(input_data["roomKey"])
                     match input_data["idTest"]:
-                        case "TC6":
+                        case "TC7":
                             self.assertEqual(result.exception.message,"La fecha de salida no es hoy")
