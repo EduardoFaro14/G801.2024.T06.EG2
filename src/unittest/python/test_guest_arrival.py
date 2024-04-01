@@ -36,7 +36,7 @@ class testGuestArrival(TestCase):
             file_hash = ""
         return file_hash
 
-    @freeze_time("2024-06-14 12:00:00")
+    @freeze_time("2024-06-14")
     def test_guest_arrival_tests_tc1(self):  # TEST VALIDO
         index = 0
         hash1 = self.get_hash()
@@ -50,12 +50,12 @@ class testGuestArrival(TestCase):
                 roomKey = hm.guest_arrival(inputData)
                 match testId:
                     case "TC1":
-                        self.assertEqual(roomKey, "f280243dd947601de72d625467011f701929f1a0ad89cfb90cb769d89651274b")
+                        self.assertEqual(roomKey, "fbf2c46543aa1573cea3a28be76f1f8bf8f4a8267146133e0cd1a81e6864cd53")
         hash2 = self.get_hash()
         if hash2 != hash1:
             raise hotelManagementException("El archivo de reservas ha sido modificado")
 
-    @freeze_time("2024-06-24 12:00:00")
+    @freeze_time("2024-06-24")
     def test_guest_arrival_tests_tc2(self):  # TEST INVALIDO
         hash1 = self.get_hash()
         for index in range(72):

@@ -1,7 +1,7 @@
 """Modulo hotelManager"""
 import json
 import os
-from typing import re
+import re
 
 from luhn import verify
 from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
@@ -43,8 +43,8 @@ class hotelManager:
 
         #arrival = str(arrival[0].isoformat())
         #departure = departure[0].isoformat()
-        arrival_str = arrival.strftime("%Y-%m-%d %H:%M:%S")
-        departure_str = departure.strftime("%Y-%m-%d %H:%M:%S")
+        arrival_str = arrival.strftime("%Y-%m-%d")
+        departure_str = departure.strftime("%Y-%m-%d")
         datosReservaFinal = {
             "Localizer": localizador,
             "IdCard": idCard,
@@ -292,16 +292,18 @@ class hotelManager:
             raise hotelManagementException("roomKey tiene menos de 64 caracteres")
         if len(roomKey) > 64:
             raise hotelManagementException("roomKey tiene más de 64 caracteres")
-        if not re.match(r"^[a-fA-F0-9]{64}$",roomKey):
+        if not re.match("^[a-fA-F0-9]{64}$", roomKey):
             raise hotelManagementException("roomKey no es hexadecimal de 64 caracteres")
         nombreArchivo = (r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json")
         datosReservaf1 = self.readdatafrom_json(nombreArchivo)
         if not datosReservaf1:
             raise hotelManagementException("El archivo de reservas2.json está vacío")
 
-        hoy = datetime.now().date().strftime("%d/%m/%Y")
+        hoy = datetime.now().date().strftime("%Y-%m-%d")
         existe = 0
         #posicion, contador = 0, 0
+        if not isinstance(datosReservaf1, list):
+            datosReservaf1 = [datosReservaf1]
         for a in datosReservaf1:
             if a["roomKey"] == roomKey:
                 existe = 1

@@ -21,7 +21,7 @@ class testGuestCheckout(TestCase):
     @classmethod
     def setUpClass(cls):
         try:
-            with open(cls.__path_tests + r"\test1.json", encoding="UTF-8", mode="r") as f:
+            with open(cls.__path_tests + r"\test3.json", encoding="UTF-8", mode="r") as f:
                 test_data_credit_card = json.load(f)
         except FileNotFoundError as e:
             raise hotelManagementException("Wrong file or file path") from e
@@ -29,44 +29,22 @@ class testGuestCheckout(TestCase):
             test_data_credit_card = []
         cls.__test_data_credit_card = test_data_credit_card
         JSON_FILES_PATH = cls.__path_tests
-        file_store = JSON_FILES_PATH + r"\reservas.json"
+        file_store = JSON_FILES_PATH + r"\reserva3.json"
         if os.path.isfile(file_store):
             os.remove(file_store)
 
-
-    def test_guest_checkoutok(self):  # TEST VALIDO
-        index = 0
-        hash1 = self.get_hash()
-        if index + 1 in [1]:
-            testId = "TC" + str(index + 1)
-            with self.subTest(testId):
-                inputData = self.__path_tests + r"\test2\test" + str(index + 1) + r".json"
-                print("Ejecutando: " + testId)
-                # self.generate_tmp_test_data_file(inputData)
-                hm = hotelManager()
-                roomKey = hm.guest_arrival(inputData)
-                match testId:
+    @freeze_time("2497-07-24")
+    def test_guest_checkoutok_tc1(self):  # TEST VALIDO
+        for input_data in self.__test_data_credit_card:
+            if input_data["idTest"] == "TC1":
+                with self.subTest(input_data["idTest"]):
+                    print("Executing: " + input_data["idTest"])
+                    hm = hotelManager()
+                verdadero = hm.guest_checkout(input_data["roomKey"])
+                match input_data["idTest"]:
                     case "TC1":
-
-        hash2 = self.get_hash()
-        if hash2 != hash1:
-            raise hotelManagementException("El archivo de reservas ha sido modificado")
-
+                        self.assertEqual(verdadero, True)
 
     def test_guest_checkoutko(self):  # TEST INVALIDOS
+        print("Hola mundo")
 
-        hash1 = self.get_hash()
-        for index in range(72):
-
-            if index + 1 in [2, 3, 4]:
-                testId = "TC" + str(index + 1)
-                inputData = self.__path_tests + r"\test2\test" + str(index + 1) + r".json"
-                with (self.subTest(testId)):
-                    print("Ejecutando: " + testId)
-                    # self.generate_tmp_test_data_file(inputData)
-                    hm = hotelManager()
-                    with self.assertRaises(hotelManagementException) as result:
-                        roomKey = hm.guest_arrival(inputData)
-                    print(testId)
-                    match str(testId):
-                        case "TC2":
