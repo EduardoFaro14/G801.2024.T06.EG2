@@ -29,11 +29,11 @@ class testGuestCheckout(TestCase):
             test_data_credit_card = []
         cls.__test_data_credit_card = test_data_credit_card
         JSON_FILES_PATH = cls.__path_tests
-        file_store = JSON_FILES_PATH + r"\reserva3.json"
+        file_store = JSON_FILES_PATH + r"\reservas3.json"
         if os.path.isfile(file_store):
             os.remove(file_store)
 
-    @freeze_time("2497-07-24")
+    @freeze_time("2024-06-16")
     def test_guest_checkoutok_tc1(self):  # TEST VALIDO
         for input_data in self.__test_data_credit_card:
             if input_data["idTest"] == "TC1":

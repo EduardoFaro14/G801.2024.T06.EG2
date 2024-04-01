@@ -16,7 +16,7 @@ class hotelStay():
         #to add the number of days we must express numdays in seconds
         numdays = int(numdays)
         delta = timedelta(days=numdays)
-        self.__departure = self.__arrival + (delta * 24 * 60 * 60)
+        self.__departure = self.__arrival + (delta)
 
     def __signature_string(self):
         """Composes the string to be used for generating the key for the room"""

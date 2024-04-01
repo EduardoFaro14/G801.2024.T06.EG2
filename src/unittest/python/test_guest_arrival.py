@@ -50,7 +50,7 @@ class testGuestArrival(TestCase):
                 roomKey = hm.guest_arrival(inputData)
                 match testId:
                     case "TC1":
-                        self.assertEqual(roomKey, "fbf2c46543aa1573cea3a28be76f1f8bf8f4a8267146133e0cd1a81e6864cd53")
+                        self.assertEqual(roomKey, "caa15f15a3c5d53c7956706fa8a7f02c0a72a0cb591e9d4bc71727c32f13891d")
         hash2 = self.get_hash()
         if hash2 != hash1:
             raise hotelManagementException("El archivo de reservas ha sido modificado")
