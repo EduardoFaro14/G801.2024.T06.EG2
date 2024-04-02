@@ -3,12 +3,12 @@ import json
 import os
 import re
 
-from luhn import verify
-from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
-from src.main.python.uc3m_travel.hotel_reservation import hotelReservation
-from stdnum.es import nif
 from datetime import datetime
-from src.main.python.uc3m_travel.hotel_stay import hotelStay
+from luhn import verify
+from stdnum.es import nif
+from uc3m_travel.hotel_management_exception import hotelManagementException
+from uc3m_travel.hotel_reservation import hotelReservation
+from uc3m_travel.hotel_stay import hotelStay
 
 
 class hotelManager:
@@ -37,13 +37,11 @@ class hotelManager:
         return data
     def validar_formato_fecha(self, cadena):
         '''Función para saber que el formato de la fecha es el correcto'''
-        if (len(cadena) == 10 and cadena[2] == '/' and cadena[5] == '/'
+        return (len(cadena) == 10 and cadena[2] == '/' and cadena[5] == '/'
                 and cadena[0].isdigit() and cadena[
                 1].isdigit() and cadena[3].isdigit()
-                and cadena[4].isdigit() and cadena[6:].isdigit()):
-            return True
-        else:
-            return False
+                and cadena[4].isdigit() and cadena[6:].isdigit())
+
     def guardar_reserva2_en_archivo\
     (self, localizador, id_card, room_type, arrival, departure, room_key):
         '''Función para guardar datos en reservas2'''
@@ -314,7 +312,8 @@ class hotelManager:
         # que el localizador coincide con los datos que estaban en el fichero
         try:
             with open(r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri"
-                      r"\EG2\src\main\python\json_files\reservas.json", 'r', encoding='utf-8') as f:
+                      r"\EG2\src\main\python\json_files\reservas.json"
+                      , 'r', encoding='utf-8') as f:
                 datosReservaf1 = json.load(f)
         except FileNotFoundError:
             datosReservaf1 = {}
@@ -380,6 +379,7 @@ class hotelManager:
 
         hoy = datetime.now().date().strftime("%Y-%m-%d")
         existe = 0
+        fechaSalida = ""
         # posicion, contador = 0, 0
         if not isinstance(datosReservaf1, list):
             datosReservaf1 = [datosReservaf1]
