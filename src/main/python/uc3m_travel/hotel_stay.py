@@ -20,11 +20,11 @@ class hotelStay():
 
     def __signature_string(self):
         """Composes the string to be used for generating the key for the room"""
-        arrival_str = self.__arrival.strftime("%Y-%m-%d")
-        departure_str = self.__departure.strftime("%Y-%m-%d")
+        arrivalStr = self.__arrival.strftime("%Y-%m-%d")
+        departureStr = self.__departure.strftime("%Y-%m-%d")
         return "{alg:" + self.__alg + ",typ:" + self.__type + ",localizer:" + \
-            self.__localizer + ",arrival:" + arrival_str + \
-            ",departure:" + departure_str + "}"
+            self.__localizer + ",arrival:" + arrivalStr + \
+            ",departure:" + departureStr + "}"
 
     @property
     def id_card(self):

@@ -1,17 +1,11 @@
 import hashlib
-import json
-import unittest
 import os.path
 from unittest import TestCase
 
-from tomlkit import string
-
+from freezegun import freeze_time
 from src.main.python.uc3m_travel.hotel_manager import hotelManager
 from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
-from src.main.python.uc3m_travel.hotel_stay import hotelStay
-from pathlib import Path
-from datetime import datetime
-from freezegun import freeze_time
+
 
 
 class testGuestArrival(TestCase):
@@ -31,10 +25,10 @@ class testGuestArrival(TestCase):
     def get_hash(self):
         try:
             with open(self.__path_tests + r"\reservas2.json", encoding='UTF-8', mode="r") as f:
-                file_hash = hashlib.md5(f.__str__().encode()).hexdigest()
+                fileHash = hashlib.md5(f.__str__().encode()).hexdigest()
         except FileNotFoundError:
-            file_hash = ""
-        return file_hash
+            fileHash = ""
+        return fileHash
 
     @freeze_time("2024-06-14")
     def test_guest_arrival_tests_tc1(self):  # TEST VALIDO

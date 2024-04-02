@@ -1,17 +1,11 @@
 import copy
 import json
-import unittest
 import os.path
 from unittest import TestCase
 
-from tomlkit import string
-
+from freezegun import freeze_time
 from src.main.python.uc3m_travel.hotel_manager import hotelManager
 from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
-from src.main.python.uc3m_travel.hotel_stay import hotelStay
-from pathlib import Path
-from datetime import datetime
-from freezegun import freeze_time
 
 
 class testGuestCheckout(TestCase):
@@ -23,26 +17,26 @@ class testGuestCheckout(TestCase):
     def setUpClass(cls):
         try:
             with open(cls.__path_tests + r"\test3.json", encoding="UTF-8", mode="r") as f:
-                test_data_credit_card = json.load(f)
+                testDataCreditCard = json.load(f)
         except FileNotFoundError as e:
             raise hotelManagementException("Wrong file or file path") from e
         except json.JSONDecodeError:
-            test_data_credit_card = []
-        cls.__test_data_credit_card = test_data_credit_card
-        JSON_FILES_PATH = cls.__path_tests
-        file_store = JSON_FILES_PATH + r"\reservas3.json"
-        if os.path.isfile(file_store):
-            os.remove(file_store)
+            testDataCreditCard = []
+        cls.__test_data_credit_card = testDataCreditCard
+        jsonFilesPath = cls.__path_tests
+        fileStore = jsonFilesPath + r"\reservas3.json"
+        if os.path.isfile(fileStore):
+            os.remove(fileStore)
 
     @freeze_time("2024-06-16")
     def test_guest_checkout_tc1(self):  # TEST VALIDO
-        for input_data in self.__test_data_credit_card:
-            if input_data["idTest"] == "TC1":
-                with self.subTest(input_data["idTest"]):
-                    print("Executing: " + input_data["idTest"])
+        for inputData in self.__test_data_credit_card:
+            if inputData["idTest"] == "TC1":
+                with self.subTest(inputData["idTest"]):
+                    print("Executing: " + inputData["idTest"])
                     hm = hotelManager()
-                verdadero = hm.guest_checkout(input_data["roomKey"])
-                match input_data["idTest"]:
+                verdadero = hm.guest_checkout(inputData["roomKey"])
+                match inputData["idTest"]:
                     case "TC1":
                         self.assertEqual(verdadero, True)
 
@@ -150,12 +144,12 @@ class testGuestCheckout(TestCase):
                 with self.subTest(input_data["idTest"]):
                     print("Executing: " + input_data["idTest"])
                     hm = hotelManager()
-                    original_file_path = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json"
-                    new_file_path = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2_new.json"
-                    os.rename(original_file_path, new_file_path)
+                    originalFilePath = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2.json"
+                    newFilePath = r"C:\Users\eduardo faro jr\OneDrive\Documentos\3 curso 2 cuatri\EG2\src\main\python\json_files\reservas2_new.json"
+                    os.rename(originalFilePath, newFilePath)
                     with self.assertRaises(hotelManagementException) as result:
                         hm.guest_checkout(input_data["roomKey"])
-                    os.rename(new_file_path, original_file_path)
+                    os.rename(newFilePath, originalFilePath)
                     match input_data["idTest"]:
                         case "TC11":
                             self.assertEqual(result.exception.message,

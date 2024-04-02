@@ -1,10 +1,8 @@
 import json
-import unittest
 import os.path
 from unittest import TestCase
 from src.main.python.uc3m_travel.hotel_manager import hotelManager
 from src.main.python.uc3m_travel.hotel_management_exception import hotelManagementException
-from pathlib import Path
 
 class testRoomResevation(TestCase):
 
@@ -14,25 +12,25 @@ class testRoomResevation(TestCase):
     def setUpClass(cls):
         try:
             with open(cls.__path_tests + r"\test1.json", encoding="UTF-8", mode="r") as f:
-                test_data_credit_card = json.load(f)
+                testDataCreditCard = json.load(f)
         except FileNotFoundError as e:
             raise hotelManagementException("Wrong file or file path") from e
         except json.JSONDecodeError:
-            test_data_credit_card = []
-        cls.__test_data_credit_card = test_data_credit_card
-        JSON_FILES_PATH = cls.__path_tests
-        file_store = JSON_FILES_PATH + r"\reservas.json"
-        if os.path.isfile(file_store):
-            os.remove(file_store)
+            testDataCreditCard = []
+        cls.__test_data_credit_card = testDataCreditCard
+        jsonFilesPath = cls.__path_tests
+        fileStore = jsonFilesPath + r"\reservas.json"
+        if os.path.isfile(fileStore):
+            os.remove(fileStore)
 
     def test_credit_card_number_tc1(self):
-        for input_data in self.__test_data_credit_card:
-            if input_data["idTest"] == "TC1" or input_data["idTest"] == "TC2" or input_data["idTest"] == "TC3":
-                with self.subTest(input_data["idTest"]):
-                    print("Executing: " + input_data["idTest"])
+        for inputData in self.__test_data_credit_card:
+            if inputData["idTest"] == "TC1" or inputData["idTest"] == "TC2" or inputData["idTest"] == "TC3":
+                with self.subTest(inputData["idTest"]):
+                    print("Executing: " + inputData["idTest"])
                     hm = hotelManager()
-                localizer = hm.room_reservation(input_data["CreditCard"],input_data["IdCard"], input_data["NameSurname"], input_data["phoneNumber"], input_data["RoomType"], input_data["Arrival"], input_data["NumDays"])
-                match input_data["idTest"]:
+                localizer = hm.room_reservation(inputData["CreditCard"],inputData["IdCard"], inputData["NameSurname"], inputData["phoneNumber"], inputData["RoomType"], inputData["Arrival"], inputData["NumDays"])
+                match inputData["idTest"]:
                     case "TC1":
                         self.assertEqual(localizer, "43d9d717214b9f6858bd2b55be901645")
                     case "TC2":

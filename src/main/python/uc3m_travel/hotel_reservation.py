@@ -1,7 +1,6 @@
 """Este módulo es reservation"""
 
 import hashlib
-from datetime import datetime
 
 
 class hotelReservation:
